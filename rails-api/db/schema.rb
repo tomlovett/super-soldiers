@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_163740) do
+ActiveRecord::Schema.define(version: 2019_05_14_200704) do
 
   create_table "missions", force: :cascade do |t|
     t.string "name"
     t.integer "soldiers_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["soldiers_id"], name: "index_missions_on_soldiers_id"
   end
 
@@ -31,6 +32,15 @@ ActiveRecord::Schema.define(version: 2019_05_14_163740) do
     t.string "nationality"
     t.string "gender"
     t.boolean "is_alive"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
