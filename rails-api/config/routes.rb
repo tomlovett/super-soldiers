@@ -5,4 +5,7 @@ Rails.application.routes.draw do
 
   post 'missions/:id/soldiers/:soldier_id', to: 'missions#add_soldier'
   delete 'missions/:id/soldiers/:soldier_id', to: 'missions#remove_soldier'
+
+  post 'auth/login', to: 'authentication#authenticate'
+  post 'signup', to: 'users#create'
 end
