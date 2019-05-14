@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Soldiers API', type: :request do
   let!(:soldiers) { create_list(:soldier, 10) }
-  let(:soldier_id) { soldiers.first.id }
+  let(:id) { soldiers.first.id }
 
   describe 'GET /soldiers' do
     before { get '/soldiers' }
@@ -18,12 +18,12 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'GET /soldiers/:id' do
-    before { get "/soldiers/#{soldier_id}" }
+    before { get "/soldiers/#{id}" }
 
     context 'when the record exists' do
       it 'returns the soldier' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(soldier_id)
+        expect(json['id']).to eq(id)
       end
 
       it 'returns 200' do
@@ -32,7 +32,8 @@ RSpec.describe 'Soldiers API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:soldier_id) { 666 }
+      let(:id) { 666 }
+
       it 'returns 404' do
         expect(response).to have_http_status(404)
       end
@@ -75,7 +76,7 @@ RSpec.describe 'Soldiers API', type: :request do
     let(:valid_attrs) { { first_name: 'Mohandas' } }
 
     context 'when the record exists' do
-      before { put "/soldiers/#{soldier_id}", params: valid_attrs }
+      before { put "/soldiers/#{id}", params: valid_attrs }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -89,18 +90,16 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'DELETE /soldiers/:id' do
-    context 'when the record exists' do
-      before { delete "/soldiers/#{soldier_id}" }
+    before { delete "/soldiers/#{id}" }
 
+    context 'when the record exists' do
       it 'returns 204' do
         expect(response).to have_http_status(204)
       end
     end
 
     context 'when the record does not exist' do
-      let(:soldier_id) { 666 }
-
-      before { delete "/soldiers/#{soldier_id}" }
+      let(:id) { 666 }
 
       it 'returns 404' do
         expect(response).to have_http_status(404)
