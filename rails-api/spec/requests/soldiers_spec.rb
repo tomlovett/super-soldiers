@@ -1,0 +1,110 @@
+require 'rails_helper'
+
+RSpec.describe 'Soldiers API', type: :request do
+  let!(:soldiers) { create_list(:soldier, 10) }
+  let(:soldier_id) { soldiers.first.id }
+
+  describe 'GET /soldiers' do
+    before { get '/soldiers' }
+
+    it 'returns soldiers' do
+      expect(json).not_to be_empty
+      expect(json.size).to eq(10)
+    end
+
+    it 'returns 200' do
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  describe 'GET /soldiers/:id' do
+    before { get "/soldiers/#{soldier_id}" }
+
+    context 'when the record exists' do
+      it 'returns the soldier' do
+        expect(json).not_to be_empty
+        expect(json['id']).to eq(soldier_id)
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'when the record does not exist' do
+      let(:soldier_id) { 666 }
+      it 'returns 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Soldier/)
+      end
+    end
+  end
+
+  describe 'POST /soldiers' do
+    let(:valid_attrs) { {first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true }}
+
+    context 'with valid data' do
+      before { post '/soldiers', params: valid_attrs }
+
+      it 'creates a soldier' do
+        expect(json['last_name']).to eq('Gandhi')
+      end
+
+      it 'returns 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'with invalid data' do
+      before { post '/soldiers', params: {} }
+
+      it 'returns 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body).to match(/Validation failed: First name can't be blank/)
+      end
+    end
+  end
+
+  describe 'PUT /soldiers/:id' do
+    let(:valid_attrs) { { first_name: 'Mohandas' } }
+
+    context 'when the record exists' do
+      before { put "/soldiers/#{soldier_id}", params: valid_attrs }
+
+      it 'updates the record' do
+        expect(response.body).to be_empty
+      end
+
+      it 'returns 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+  end
+
+  describe 'DELETE /soldiers/:id' do
+    context 'when the record exists' do
+      before { delete "/soldiers/#{soldier_id}" }
+
+      it 'returns 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'when the record does not exist' do
+      let(:soldier_id) { 666 }
+
+      before { delete "/soldiers/#{soldier_id}" }
+
+      it 'returns 404' do
+        expect(response).to have_http_status(404)
+      end
+    end
+  end
+end

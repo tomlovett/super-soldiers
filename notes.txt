@@ -12,6 +12,7 @@ Soldier
   nationality
   is_alive
 Mission
+  Name
   User
   Soldiers
   KIA - Soldiers
