@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Soldiers API', type: :request do
   let(:user) { create(:user) }
-  let!(:soldiers) { create_list(:soldier, 10) }
+  let!(:soldiers) { create_list(:soldier, 10, user: user) }
   let(:id) { soldiers.first.id }
   let(:headers) { valid_headers }
 
@@ -47,7 +47,7 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'POST /soldiers' do
-    let(:valid_attrs) { {first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true }.to_json }
+    let(:valid_attrs) { {first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true, user_id: user.id }.to_json }
 
     context 'with valid data' do
       before { post '/soldiers', params: valid_attrs, headers: headers }
@@ -69,7 +69,7 @@ RSpec.describe 'Soldiers API', type: :request do
       end
 
       it 'returns a validation failure message' do
-        expect(response.body).to match(/Validation failed: First name can't be blank/)
+        expect(response.body).to match(/First name can't be blank/)
       end
     end
   end

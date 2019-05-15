@@ -37,7 +37,7 @@ class MissionsController < ApplicationController
   private
 
   def mission_params
-    params.permit(:name)
+    params.permit(:user_id, :name)
   end
 
   def set_mission

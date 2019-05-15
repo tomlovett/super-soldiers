@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Missions API', type: :request do
   let(:user) { create(:user) }
-  let!(:missions) { create_list(:mission, 10) }
-  let!(:soldier) { create(:soldier) }
-  let!(:soldiers) { create_list(:soldier, 5) }
+  let!(:missions) { create_list(:mission, 10, user: user) }
+  let!(:soldier) { create(:soldier, user: user) }
+  let!(:soldiers) { create_list(:soldier, 5, user: user) }
   let(:id) { missions.first.id }
   let(:soldier_id) { soldier.id }
   let(:headers) { valid_headers }
@@ -48,7 +48,7 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'POST /mission' do
-    let(:valid_attrs) { { name: 'Frozen Tundra' }.to_json }
+    let(:valid_attrs) { { name: 'Frozen Tundra', user_id: user.id }.to_json }
 
     context 'with valid data' do
       before { post '/missions', params: valid_attrs, headers: headers }
@@ -66,7 +66,7 @@ RSpec.describe 'Missions API', type: :request do
       before { post '/missions', params: {}, headers: headers }
 
       it 'returns a validation error message' do
-        expect(response.body).to match(/Validation failed: Name can't be blank/)
+        expect(response.body).to match(/Name can't be blank/)
       end
 
       it 'returns 422' do
