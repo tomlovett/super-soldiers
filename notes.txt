@@ -20,5 +20,14 @@ Mission
 FRONTEND
 Routes
   /missions
+    link to add soldiers
+  /missions/new
+    list soldiers, checkbox to add
+    OR: click to move from on/off mission
   /soldiers
+    list soldiers - sort by headers
+    new - inline form at top
   /user
+    sign out,
+  /admin
+    manage other users
