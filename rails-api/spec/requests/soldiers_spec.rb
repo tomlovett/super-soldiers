@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Soldiers API', type: :request do
+  let(:user) { create(:user) }
   let!(:soldiers) { create_list(:soldier, 10) }
   let(:id) { soldiers.first.id }
+  let(:headers) { valid_headers }
 
   describe 'GET /soldiers' do
-    before { get '/soldiers' }
+    before { get '/soldiers', params: {}, headers: headers }
 
     it 'returns soldiers' do
       expect(json).not_to be_empty
@@ -18,7 +20,7 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'GET /soldiers/:id' do
-    before { get "/soldiers/#{id}" }
+    before { get "/soldiers/#{id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the soldier' do
@@ -45,10 +47,10 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'POST /soldiers' do
-    let(:valid_attrs) { {first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true }}
+    let(:valid_attrs) { {first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true }.to_json }
 
     context 'with valid data' do
-      before { post '/soldiers', params: valid_attrs }
+      before { post '/soldiers', params: valid_attrs, headers: headers }
 
       it 'creates a soldier' do
         expect(json['last_name']).to eq('Gandhi')
@@ -60,7 +62,7 @@ RSpec.describe 'Soldiers API', type: :request do
     end
 
     context 'with invalid data' do
-      before { post '/soldiers', params: {} }
+      before { post '/soldiers', params: {}, headers: headers }
 
       it 'returns 422' do
         expect(response).to have_http_status(422)
@@ -73,10 +75,10 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'PUT /soldiers/:id' do
-    let(:valid_attrs) { { first_name: 'Mohandas' } }
+    let(:valid_attrs) { { first_name: 'Mohandas' }.to_json }
 
     context 'when the record exists' do
-      before { put "/soldiers/#{id}", params: valid_attrs }
+      before { put "/soldiers/#{id}", params: valid_attrs, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -90,7 +92,7 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'DELETE /soldiers/:id' do
-    before { delete "/soldiers/#{id}" }
+    before { delete "/soldiers/#{id}", headers: headers }
 
     context 'when the record exists' do
       it 'returns 204' do

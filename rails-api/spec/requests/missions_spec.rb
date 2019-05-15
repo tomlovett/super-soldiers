@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Missions API', type: :request do
+  let(:user) { create(:user) }
   let!(:missions) { create_list(:mission, 10) }
   let!(:soldier) { create(:soldier) }
   let!(:soldiers) { create_list(:soldier, 5) }
   let(:id) { missions.first.id }
   let(:soldier_id) { soldier.id }
+  let(:headers) { valid_headers }
 
   describe 'GET /missions' do
-    before { get '/missions' }
+    before { get '/missions', headers: headers }
 
     it 'returns all missions' do
       expect(json.size).to eq(10)
@@ -20,7 +22,7 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'GET /mission/:id' do
-    before { get "/missions/#{id}" }
+    before { get "/missions/#{id}", headers: headers }
 
     context 'with valid mission_id' do
       it 'returns the mission' do
@@ -46,10 +48,10 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'POST /mission' do
-    let(:valid_attrs) { { name: 'Frozen Tundra' } }
+    let(:valid_attrs) { { name: 'Frozen Tundra' }.to_json }
 
     context 'with valid data' do
-      before { post '/missions', params: valid_attrs }
+      before { post '/missions', params: valid_attrs, headers: headers }
 
       it 'creates a mission' do
         expect(json['name']).to eq('Frozen Tundra')
@@ -61,7 +63,7 @@ RSpec.describe 'Missions API', type: :request do
     end
 
     context 'with invalid data' do
-      before { post '/missions', params: {} }
+      before { post '/missions', params: {}, headers: headers }
 
       it 'returns a validation error message' do
         expect(response.body).to match(/Validation failed: Name can't be blank/)
@@ -74,7 +76,7 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'PUT /mission/:id' do
-    before { put "/missions/#{id}", params: { name: 'Goobleygook' } }
+    before { put "/missions/#{id}", params: { name: 'Goobleygook' }.to_json, headers: headers }
 
     it 'updates the record' do
       expect(response.body).to be_empty
@@ -86,7 +88,7 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'DELETE /mission/:id' do
-    before { delete "/missions/#{id}" }
+    before { delete "/missions/#{id}", headers: headers }
 
     context 'when the record exists' do
       it 'returns 204' do
@@ -104,7 +106,7 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'POST /mission/:id/soldiers/:soldier_id' do
-    before { post "/missions/#{id}/soldiers/#{soldier_id}" }
+    before { post "/missions/#{id}/soldiers/#{soldier_id}", headers: headers }
 
     context 'with valid mission and soldier' do
       it 'returns 204' do
@@ -130,7 +132,7 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'DELETE /mission/:id/soldiers/:soldier_id' do
-    before { delete "/missions/#{id}/soldiers/#{soldier_id}" }
+    before { delete "/missions/#{id}/soldiers/#{soldier_id}", headers: headers }
 
     context 'with valid mission and soldier' do
       it 'returns 204' do
