@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as missionActions from '../actions/missionActions';
+import * as missionActions from '../../actions/missionActions';
 
-class Missions extends React.Component {
+class MissionsContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,11 +12,15 @@ class Missions extends React.Component {
       newMissionName: ''
     }
 
+    this.submitMission = this.submitMission.bind(this);
+  }
+
+  componentDidMount() {
     this.props.actions.fetchMissions()
   }
 
   submitMission(missionData) {
-    console.log('Mission submitted: ', missionData);
+    console.log('Mission submitted: ', this.state.newMissionName);
   }
 
   render() {
@@ -34,10 +38,10 @@ class Missions extends React.Component {
           <tbody>
             {this.props.missions.map((mission, i) => {
               return (
-                <div key={i}>
+                <tr key={i}>
                   <th scope="row">{mission.name}</th>
                   <td>{mission.soldiers}</td>
-                </div>
+                </tr>
               );
             })}
           </tbody>
@@ -65,7 +69,7 @@ class Missions extends React.Component {
   }
 }
 
-Missions.propTypes = {
+MissionsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   missions: PropTypes.array.isRequired
 }
@@ -82,4 +86,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Missions);
+export default connect(mapStateToProps, mapDispatchToProps)(MissionsContainer);

@@ -1,7 +1,6 @@
 MODELS
 User
-  first_name
-  last_name
+  name
   email
   password_digest
   role
@@ -11,11 +10,14 @@ Soldier
   gender
   nationality
   is_alive
+  // num_kills
+  // .num_missions
 Mission
   Name
   User
   Soldiers
-  KIA - Soldiers
+  // KIA - Soldiers
+  // aliens_killed
 
 FRONTEND
 Routes
@@ -31,3 +33,17 @@ Routes
     sign out,
   /admin
     manage other users
+
+BUILD
+  /welcome
+    login, register -- turn server auth back on; UserForm
+  /missions - read
+    MissionsContainer, MissionList, Mission,// MissionForm (add/edit)
+  /soldiers - read
+    SoldiersContainer, SoldierList, Soldier,// SoldierForm (add/edit)
+  Add/Edit soldier
+  Add/Edit mission
+
+MISC.
+  Serialize .num_missions with Soldiers
+  Serialize Soldiers with Missions
