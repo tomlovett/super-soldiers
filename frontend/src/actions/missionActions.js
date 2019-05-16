@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import * as types from '../constants/actionTypes'
 
-const apiUrl = 'localhost:3000/missions'
+const apiUrl = 'http://localhost:3000/missions'
 
 export const addMission = (mission) => {
   return (dispatch) => {
@@ -23,6 +23,7 @@ const fetchMissionsSuccess = (missions) => {
 }
 
 export const fetchMissions = () => {
+  console.log('fetchMissions called');
   return (dispatch) => {
     return Axios.get(apiUrl)
       .then(res => {

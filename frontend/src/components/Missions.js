@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addMission} from '../actions/missionActions';
+import {bindActionCreators} from 'redux';
+import * as missionActions from '../actions/missionActions';
 
 class Missions extends React.Component {
   constructor(props) {
@@ -10,6 +11,8 @@ class Missions extends React.Component {
     this.state = {
       newMissionName: ''
     }
+
+    this.props.actions.fetchMissions()
   }
 
   submitMission(missionData) {
@@ -63,6 +66,7 @@ class Missions extends React.Component {
 }
 
 Missions.propTypes = {
+  actions: PropTypes.object.isRequired,
   missions: PropTypes.array.isRequired
 }
 
@@ -74,7 +78,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addMission: mission => dispatch(addMission(mission))
+    actions: bindActionCreators(missionActions, dispatch)
   }
 }
 

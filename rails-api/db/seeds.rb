@@ -14,13 +14,13 @@ crystal = Soldier.create(first_name: 'Christina', last_name: 'P', nationality: '
 tommy = Soldier.create(first_name: 'Tom', last_name: 'Segura', nationality: 'Peru', gender: 'm', is_alive: true, user: user)
 uncle_joey = Soldier.create(first_name: 'Joey', last_name: 'Diaz' , nationality: 'Cuba', gender: 'm', is_alive: true, user: user)
 
-cool_guy = Mission.create(name: 'Cool Guy')
+cool_guy = Mission.create(name: 'Cool Guy', user: user)
 cool_guy.soldiers << bart
 cool_guy.soldiers << lee
 cool_guy.soldiers << crystal
 cool_guy.soldiers << tommy
 
-try_it_out = Mission.create(name: 'Try It Out')
+try_it_out = Mission.create(name: 'Try It Out', user: user)
 try_it_out.soldiers << tommy
 try_it_out.soldiers << crystal
 try_it_out.soldiers << uncle_joey
