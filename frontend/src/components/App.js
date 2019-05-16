@@ -20,7 +20,7 @@ class App extends React.Component {
       <h1>Super Soldiers</h1>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/missions" component={Missions} />
+          <Route path="/missions" component={Missions} />
           <Route path="/soldiers" component={Soldiers} />
           <Route component={NotFoundPage} />
         </Switch>

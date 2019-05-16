@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {addMission} from '../actions/missionActions';
 
 class Missions extends React.Component {
   constructor(props) {
@@ -18,9 +21,24 @@ class Missions extends React.Component {
       <div>
         <h2>Missions</h2>
 
-        <ul className="list-group">
-          {this.props.missions.map((mission, i) => <li key={i} className="list-group-item">{mission.name}</li>)}
-        </ul>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Mission</th>
+              <th scope="col">Soldiers</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.missions.map((mission, i) => {
+              return (
+                <div key={i}>
+                  <th scope="row">{mission.name}</th>
+                  <td>{mission.soldiers}</td>
+                </div>
+              );
+            })}
+          </tbody>
+        </table>
 
         <div>
           <h4>Add Mission</h4>
@@ -44,4 +62,20 @@ class Missions extends React.Component {
   }
 }
 
-export default Missions;
+Missions.propTypes = {
+  missions: PropTypes.array.isRequired
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    missions: state.missions
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMission: mission => dispatch(addMission(mission))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Missions);
