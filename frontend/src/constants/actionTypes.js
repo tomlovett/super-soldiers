@@ -1,3 +1,6 @@
+// User
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+
 // Missions
 export const ADD_MISSION = 'ADD_MISSION';
 export const FETCH_MISSIONS_SUCCESS = 'FETCH_MISSIONS_SUCCESS';

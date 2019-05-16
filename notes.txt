@@ -47,3 +47,4 @@ BUILD
 MISC.
   Serialize .num_missions with Soldiers
   Serialize Soldiers with Missions
+  Encrypt login info

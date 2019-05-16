@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import { Route, Switch } from "react-router-dom";
 
-import HomePage from "./HomePage";
+import HomePage from "./containers/HomePage";
 import MissionsContainer from "./containers/MissionsContainer";
 import SoldiersContainer from "./containers/SoldiersContainer";
 import NotFoundPage from "./NotFoundPage";
