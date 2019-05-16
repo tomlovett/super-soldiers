@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import HomePage from "./HomePage";
 import MissionsContainer from "./containers/MissionsContainer";
-import Soldiers from "./Soldiers";
+import SoldiersContainer from "./containers/SoldiersContainer";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
@@ -21,7 +21,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/missions" component={MissionsContainer} />
-          <Route path="/soldiers" component={Soldiers} />
+          <Route path="/soldiers" component={SoldiersContainer} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

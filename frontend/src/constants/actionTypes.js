@@ -1,2 +1,6 @@
+// Missions
 export const ADD_MISSION = 'ADD_MISSION';
 export const FETCH_MISSIONS_SUCCESS = 'FETCH_MISSIONS_SUCCESS';
+
+// Soldiers
+export const FETCH_SOLDIERS_SUCCESS = 'FETCH_SOLDIERS_SUCCESS';

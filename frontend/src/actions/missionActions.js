@@ -23,7 +23,6 @@ const fetchMissionsSuccess = (missions) => {
 }
 
 export const fetchMissions = () => {
-  console.log('fetchMissions called');
   return (dispatch) => {
     return Axios.get(apiUrl)
       .then(res => {

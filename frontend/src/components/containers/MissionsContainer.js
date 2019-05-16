@@ -19,7 +19,7 @@ class MissionsContainer extends React.Component {
     this.props.actions.fetchMissions()
   }
 
-  submitMission(missionData) {
+  submitMission() {
     console.log('Mission submitted: ', this.state.newMissionName);
   }
 
@@ -36,9 +36,9 @@ class MissionsContainer extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.missions.map((mission, i) => {
+            {this.props.missions.map((mission) => {
               return (
-                <tr key={i}>
+                <tr key={mission.id}>
                   <th scope="row">{mission.name}</th>
                   <td>{mission.soldiers}</td>
                 </tr>
@@ -74,7 +74,7 @@ MissionsContainer.propTypes = {
   missions: PropTypes.array.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     missions: state.missions
   }
