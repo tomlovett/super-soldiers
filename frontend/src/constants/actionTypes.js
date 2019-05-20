@@ -1,5 +1,6 @@
 // User
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const QUERY_SELF_SUCCESS = 'QUERY_SELF_SUCCESS';
 
 // Missions
 export const ADD_MISSION = 'ADD_MISSION';

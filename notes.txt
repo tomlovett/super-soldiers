@@ -36,7 +36,7 @@ Routes
 
 BUILD
   /welcome
-    login, register -- turn server auth back on; UserForm
+    query self and redirect to /missions
   /missions - read
     MissionsContainer, MissionList, Mission,// MissionForm (add/edit)
   /soldiers - read
@@ -48,3 +48,4 @@ MISC.
   Serialize .num_missions with Soldiers
   Serialize Soldiers with Missions
   Encrypt login info
+  Soldier avatars

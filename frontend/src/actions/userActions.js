@@ -22,3 +22,25 @@ export function authenticate(user, isLogin) {
       .catch(e => { throw(e) });
   }
 }
+
+function querySelfSuccess(user) {
+  return {
+    type: types.QUERY_SELF_SUCCESS,
+    user
+  }
+}
+
+export function querySelf(token) {
+  const usersUrl = 'http://localhost:3000/self';
+  const headers = { headers: { 'Authorization': token }};
+
+  return function(dispatch) {
+    return Axios.get(`${usersUrl}`, headers)
+      .then(res => {
+        dispatch(querySelfSuccess(res.data));
+
+        return res.data.id;
+      })
+      .catch(e => { throw(e) });
+  }
+}

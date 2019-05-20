@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import LoginForm from '../LoginForm';
-import * as userActions from '../../actions/UserActions';
+import * as userActions from '../../actions/userActions';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -12,8 +12,14 @@ class HomePage extends React.Component {
 
   loginOrRegister(userData, isLogin) {
     this.props.actions.authenticate(userData, isLogin)
+      .then(token => this.querySelfAndRedirectToMissions(token))
+      .catch(e => alert(e) );
   }
 
+  querySelfAndRedirectToMissions(userToken) {
+    this.props.actions.querySelf(userToken)
+      .then(() => this.props.history.push('/missions'));
+  }
   render() {
     return (
       <div className="container">
