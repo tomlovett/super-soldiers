@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import * as types from '../constants/actionTypes';
+import * as api from '../constants/api';
 
 const authSuccess = (token) => {
   return {
@@ -9,7 +10,7 @@ const authSuccess = (token) => {
 }
 
 export function authenticate(user, isLogin) {
-  const authUrl = isLogin ? 'http://localhost:3000/auth/login' : 'http://localhost:3000/signup'
+  const authUrl = isLogin ? api.login : api.register;
 
   return function(dispatch) {
     return Axios.post(authUrl, user)
@@ -31,11 +32,10 @@ function querySelfSuccess(user) {
 }
 
 export function querySelf(token) {
-  const usersUrl = 'http://localhost:3000/self';
-  const headers = { headers: { 'Authorization': token }};
+  const headers = api.authHeader(token);
 
   return function(dispatch) {
-    return Axios.get(`${usersUrl}`, headers)
+    return Axios.get(api.self, headers)
       .then(res => {
         dispatch(querySelfSuccess(res.data));
 

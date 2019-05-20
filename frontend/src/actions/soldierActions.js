@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import * as types from '../constants/actionTypes';
+import * as api from '../constants/api';
 
-const apiUrl = 'http://localhost:3000/soldiers'
 
 const fetchSoldiersSuccess = (soldiers) => {
   return {
@@ -10,12 +10,12 @@ const fetchSoldiersSuccess = (soldiers) => {
   };
 }
 
-export const fetchSoldiers = () => {
+export const fetchSoldiers = (token) => {
+  const headers = api.authHeader(token);
+  
   return (dispatch) => {
-    return Axios.get(apiUrl)
-      .then(res => {
-        dispatch(fetchSoldiersSuccess(res.data));
-      })
+    return Axios.get(api.soldiers, headers)
+      .then(res => dispatch(fetchSoldiersSuccess(res.data)) )
       .catch(e => { throw(e) });
   }
 }

@@ -1,11 +1,12 @@
 import Axios from 'axios';
-import * as types from '../constants/actionTypes'
+import * as types from '../constants/actionTypes';
+import * as api from '../constants/api';
 
-const apiUrl = 'http://localhost:3000/missions'
+export const addMission = (mission, token) => {
+  const headers = api.authHeader(token);
 
-export const addMission = (mission) => {
   return (dispatch) => {
-    return Axios.post(apiUrl, mission)
+    return Axios.post(api.missions, mission, headers)
       .then(res => {
         if (res.status === 201) {
           dispatch(fetchMissions());
@@ -22,9 +23,11 @@ const fetchMissionsSuccess = (missions) => {
   }
 }
 
-export const fetchMissions = () => {
+export const fetchMissions = (token) => {
+  const headers = api.authHeader(token);
+
   return (dispatch) => {
-    return Axios.get(apiUrl)
+    return Axios.get(api.missions, headers)
       .then(res => {
         dispatch(fetchMissionsSuccess(res.data))
       })

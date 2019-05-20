@@ -10,7 +10,8 @@ class SoldiersContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.fetchSoldiers();
+    const { token } = this.props.user;
+    this.props.actions.fetchSoldiers(token);
   }
 
 

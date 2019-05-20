@@ -16,7 +16,8 @@ class MissionsContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.fetchMissions()
+    const { token } = this.props.user;
+    this.props.actions.fetchMissions(token);
   }
 
   submitMission() {
@@ -76,7 +77,8 @@ MissionsContainer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    missions: state.missions
+    missions: state.missions,
+    user: state.user
   }
 }
 
