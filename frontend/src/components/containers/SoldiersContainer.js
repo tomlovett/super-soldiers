@@ -52,7 +52,8 @@ SoldiersContainer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    soldiers: state.soldiers
+    soldiers: state.soldiers,
+    user: state.user
   };
 }
 

@@ -5,9 +5,15 @@ import {bindActionCreators} from 'redux';
 import LoginForm from '../LoginForm';
 import * as userActions from '../../actions/userActions';
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   constructor(props) {
     super(props);
+
+    const { token } = this.props.user;
+
+    if (token) {
+      this.querySelfAndRedirectToMissions(token);
+    }
   }
 
   loginOrRegister(userData, isLogin) {
@@ -20,6 +26,7 @@ class HomePage extends React.Component {
     this.props.actions.querySelf(userToken)
       .then(() => this.props.history.push('/missions'));
   }
+
   render() {
     return (
       <div className="container">

@@ -1,0 +1,45 @@
+/login
+  login
+    renders only email/password
+    submitting works
+  register
+    renders email/password/confirm/name
+    submitting works
+    requires all fields
+  render
+    no token -> renders
+    has token, no user -> querySelf and redirect
+    has token & user -> redirect
+
+LoginForm
+  Login
+    renders only email/pass
+    requires all information
+  Register
+    renders email/pass/confirm/name
+    verifies all information present
+
+/missions
+  render
+  add
+    required info
+    adding soldier increases number
+  edit
+    clicking "edit" converts it to MissionForm
+  delete
+    delete decreases count
+
+Mission
+MissionForm
+
+/soldiers
+  render
+  add
+    required info
+  edit
+    clicking "edit" converts that to SoldierForm
+  delete
+
+Soldier
+  renders data properly
+SoldierForm
