@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import LoginForm from '../LoginForm';
+import LoginForm  from '../LoginForm';
 import * as userActions from '../../actions/userActions';
 
 export class HomePage extends React.Component {

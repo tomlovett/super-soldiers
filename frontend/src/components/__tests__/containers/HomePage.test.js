@@ -32,7 +32,7 @@ describe('<HomePage />', () => {
   it('reroutes if state.user.token', () => {
     const spy = sinon.spy(HomePage.prototype, 'querySelfAndRedirectToMissions')
 
-    const wrapper = shallow(<HomePage actions={actions} user={userWithToken} />);
+    shallow(<HomePage actions={actions} user={userWithToken} />);
 
     expect(spy.called).toBeTruthy();
   });

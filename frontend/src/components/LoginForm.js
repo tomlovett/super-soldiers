@@ -30,12 +30,12 @@ class LoginForm extends React.Component {
         }}>
           <div className="form-group">
             <label>Email</label>
-            <input type="text" value={this.state.email} onChange={(e) => this.updateField(e, 'email')} className="form-control" required />
+            <input name="email" type="text" value={this.state.email} onChange={(e) => this.updateField(e, 'email')} className="form-control" required />
           </div>
 
             <div className="form-group">
             <label>Password</label>
-            <input type="password" value={this.state.password} onChange={(e) => this.updateField(e, 'password')} className="form-control" required />
+            <input name="password" type="password" value={this.state.password} onChange={(e) => this.updateField(e, 'password')} className="form-control" required />
           </div>
 
           {this.props.showRegisterFields && <div>
