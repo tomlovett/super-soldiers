@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Mission from '../Mission';
 import MissionForm from '../MissionForm';
 import * as missionActions from '../../actions/missionActions';
-import { displayName } from '../../utils/soldiers';
 
 export class MissionsContainer extends React.Component {
   constructor(props) {
@@ -14,6 +14,8 @@ export class MissionsContainer extends React.Component {
       newMissionName: ''
     }
 
+    this.editMission = this.editMission.bind(this);
+    this.deleteMission = this.deleteMission.bind(this);
     this.submitMission = this.submitMission.bind(this);
   }
 
@@ -21,6 +23,10 @@ export class MissionsContainer extends React.Component {
     const { token } = this.props.user;
     this.props.actions.fetchMissions(token);
   }
+
+  editMission(mission) { return mission }
+
+  deleteMission(mission) { return mission }
 
   submitMission(mission) {
     console.log('Mission submitted: ', mission);
@@ -41,26 +47,16 @@ export class MissionsContainer extends React.Component {
           </thead>
           <tbody>
             {this.props.missions.map((mission) => {
-              const soldierNames = mission.soldiers.map(s => displayName(s));
-
-              return (
-                <tr key={mission.id}>
-                  <th scope="row">{mission.name}</th>
-                  <td>{soldierNames.join(', ')}</td>
-                  <td>
-                    <button className="btn btn-success">Edit</button>
-                  </td>
-                </tr>
-              );
+              return <Mission key={mission.id}
+                mission={mission}
+                onSubmit={this.submitMission}
+                onDelete={this.deleteMission}
+              />
             })}
+            <tr><td>Add Mission</td></tr>
+            {/* <MissionForm onSubmit={this.submitMission} /> */}
           </tbody>
         </table>
-
-        <div>
-          <h4>Add Mission</h4>
-
-          <MissionForm onSubmit={this.submitMission} />
-        </div>
       </div>
     )
   }

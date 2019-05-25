@@ -18,6 +18,10 @@ describe('<MissionForm />', () => {
   describe('with Mission prop', () => {
     const wrapper = shallow(<MissionForm mission={missionWithSoldiers} onSubmit={onSubmit} onDelete={onDelete} />);
 
+    it('renders', () => {
+      expect(wrapper.exists()).toBeTruthy();
+    });
+
     it('populates the form with passed-in data', () => {
       const nameInput = wrapper.find('input[name="name"]');
 

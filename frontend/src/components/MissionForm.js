@@ -29,7 +29,7 @@ class MissionForm extends React.Component {
     const { mission } = this.state;
 
     return (
-      <div>
+      <tr>
         <form onSubmit={e => {
             e.preventDefault();
             onSubmit(mission);
@@ -48,7 +48,7 @@ class MissionForm extends React.Component {
         {onDelete && <div>
           <button onClick={onDelete} name="delete">Delete</button>
         </div>}
-      </div>
+      </tr>
     )
   }
 }

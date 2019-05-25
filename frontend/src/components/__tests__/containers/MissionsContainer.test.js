@@ -1,36 +1,41 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { MissionsContainer } from '../../containers/MissionsContainer';
+import * as missionFixtures from '../../../utils/fixtures/missions';
 
 const actions = { fetchMissions: jest.fn() };
-const missionWithSoldiers = {
-  id: 0,
-  name: 'Test Mission',
-  soldiers: [
-    { id: 0, first_name: 'Crash Test', last_name: 'Dummy'},
-    { id: 1, nickname: 'Oscar' },
-  ]
-}
+// const missionWithSoldiers = {
+//   id: 0,
+//   name: 'Test Mission',
+//   soldiers: [
+//     { id: 0, first_name: 'Crash Test', last_name: 'Dummy'},
+//     { id: 1, nickname: 'Oscar' },
+//   ]
+// }
+const missions = [missionFixtures.missionWithSoldiers(), missionFixtures.missionWithSoldiers({id: 1})];
 const userWithToken = { token: 'authToken' };
 
-const wrapper = shallow(<MissionsContainer actions={actions} user={userWithToken} missions={[missionWithSoldiers]} />);
+
+
+const wrapper = shallow(<MissionsContainer actions={actions} user={userWithToken} missions={missions} />);
 
 describe('<MissionsContainer />', () => {
   it('renders', () => {
     expect(wrapper.find('h2').text()).toBe('Missions');
   });
 
-  it('renders missions with soldier names', () => {
-    const tbody = wrapper.find('tbody');
-
-    expect(tbody.find('tr').length).toBe(1);
-    expect(tbody.find('th').text()).toBe('Test Mission');
-    expect(tbody.find('td').at(0).text()).toBe('Crash Test Dummy, Oscar');
+  it('renders missions as Mission components', () => {
+    expect(wrapper.find('Mission').length).toBe(2);
   });
 
-  it('renders Add Mission section', () => {
-    expect(wrapper.find('MissionForm').length).toBe(1);
-  });
+  // describe Add
+  // it('renders Add Mission section', () => {
+  //   expect(wrapper.find('MissionForm').length).toBe(1);
+  // });
+
+  // describe Delete
+
+  // describe Edit
 
   // it('allows the user to edit missions', () => {
   //   const missionRow = wrapper.find('tbody').find('tr');
