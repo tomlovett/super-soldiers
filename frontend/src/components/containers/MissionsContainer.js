@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import MissionForm from '../MissionForm';
 import * as missionActions from '../../actions/missionActions';
 import { displayName } from '../../utils/soldiers';
 
@@ -21,8 +22,8 @@ export class MissionsContainer extends React.Component {
     this.props.actions.fetchMissions(token);
   }
 
-  submitMission() {
-    alert('Mission submitted: ', this.state.newMissionName);
+  submitMission(mission) {
+    console.log('Mission submitted: ', mission);
   }
 
   render() {
@@ -35,6 +36,7 @@ export class MissionsContainer extends React.Component {
             <tr>
               <th scope="col">Mission</th>
               <th scope="col">Soldiers</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -45,6 +47,9 @@ export class MissionsContainer extends React.Component {
                 <tr key={mission.id}>
                   <th scope="row">{mission.name}</th>
                   <td>{soldierNames.join(', ')}</td>
+                  <td>
+                    <button className="btn btn-success">Edit</button>
+                  </td>
                 </tr>
               );
             })}
@@ -54,19 +59,7 @@ export class MissionsContainer extends React.Component {
         <div>
           <h4>Add Mission</h4>
 
-          <form onSubmit={e => {
-              e.preventDefault();
-              this.submitMission(e.target.value);
-              e.target.reset();
-            }}>
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Name"
-                value={this.state.newMissionName}
-                onChange={e => this.setState({newMissionName: e.target.value})}
-                required />
-              <input type="submit" value="Add" className="btn btn-success" />
-            </div>
-          </form>
+          <MissionForm onSubmit={this.submitMission} />
         </div>
       </div>
     )
@@ -75,7 +68,8 @@ export class MissionsContainer extends React.Component {
 
 MissionsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
-  missions: PropTypes.array.isRequired
+  missions: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {

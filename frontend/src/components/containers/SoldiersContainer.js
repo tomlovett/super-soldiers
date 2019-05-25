@@ -47,7 +47,8 @@ class SoldiersContainer extends React.Component {
 
 SoldiersContainer.propTypes = {
   actions: PropTypes.object.isRequired,
-  soldiers: PropTypes.array.isRequired
+  soldiers: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {

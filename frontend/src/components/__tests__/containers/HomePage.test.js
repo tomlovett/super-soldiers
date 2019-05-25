@@ -13,13 +13,13 @@ const userWithToken = { token: 'authToken' };
 
 describe('<HomePage />', () => {
   it('renders', () => {
-    const wrapper = shallow(<HomePage actions={actions} user={noUser} />);
+    const wrapper = shallow(<HomePage actions={actions} user={noUser} history={[]} />);
 
     expect(wrapper.find('h2').length).toBe(1);
   });
 
   it('renders a Login form and a Register form', () => {
-    const wrapper = shallow(<HomePage actions={actions} user={noUser} />);
+    const wrapper = shallow(<HomePage actions={actions} user={noUser} history={[]} />);
 
     const loginInstance = wrapper.find('LoginForm').at(0);
     const registerInstance = wrapper.find('LoginForm').at(1);
@@ -32,7 +32,7 @@ describe('<HomePage />', () => {
   it('reroutes if state.user.token', () => {
     const spy = sinon.spy(HomePage.prototype, 'querySelfAndRedirectToMissions')
 
-    shallow(<HomePage actions={actions} user={userWithToken} />);
+    shallow(<HomePage actions={actions} user={userWithToken} history={[]} />);
 
     expect(spy.called).toBeTruthy();
   });

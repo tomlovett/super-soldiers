@@ -50,10 +50,11 @@ export class HomePage extends React.Component {
 
 HomePage.propTypes = {
   actions: PropTypes.object.isRequired,
+  history: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     user: state.user
   };
