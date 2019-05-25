@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as missionActions from '../../actions/missionActions';
 import { displayName } from '../../utils/soldiers';
 
-class MissionsContainer extends React.Component {
+export class MissionsContainer extends React.Component {
   constructor(props) {
     super(props);
 
