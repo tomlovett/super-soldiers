@@ -9,6 +9,7 @@ RSpec.describe 'Soldiers API', type: :request do
   describe 'GET /soldiers' do
     before { get '/soldiers', params: {}, headers: headers }
 
+    # TODO: It returns all soldiers for the given user
     it 'returns soldiers' do
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
