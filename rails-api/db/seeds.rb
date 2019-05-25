@@ -11,8 +11,8 @@ user = User.create(name: 'Commander', email: 'c@work.com', password: 'pass', pas
 bart = Soldier.create(first_name: 'Bart', last_name: 'Chrysler', nationality: 'USA', gender: 'm', is_alive: true, user: user)
 lee = Soldier.create(first_name: 'Lee', last_name: 'Syatt', nationality: 'Israel', gender: 'm', is_alive: true, user: user)
 crystal = Soldier.create(first_name: 'Christina', last_name: 'P', nationality: 'Poland', gender: 'f', is_alive: true, user: user)
-tommy = Soldier.create(first_name: 'Tom', last_name: 'Segura', nationality: 'Peru', gender: 'm', is_alive: true, user: user)
-uncle_joey = Soldier.create(first_name: 'Joey', last_name: 'Diaz' , nationality: 'Cuba', gender: 'm', is_alive: true, user: user)
+tommy = Soldier.create(first_name: 'Tom', last_name: 'Segura', nickname: 'Tommy Buns', nationality: 'Peru', gender: 'm', is_alive: true, user: user)
+uncle_joey = Soldier.create(first_name: 'Joey', last_name: 'Diaz', nickname: 'CoCo', nationality: 'Cuba', gender: 'm', is_alive: true, user: user)
 
 cool_guy = Mission.create(name: 'Cool Guy', user: user)
 cool_guy.soldiers << bart

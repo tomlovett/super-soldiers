@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as missionActions from '../../actions/missionActions';
+import { displayName } from '../../utils/soldiers';
 
 class MissionsContainer extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class MissionsContainer extends React.Component {
           </thead>
           <tbody>
             {this.props.missions.map((mission) => {
-              const soldierNames = mission.soldiers.map(s => `${s.first_name} ${s.last_name}`);
+              const soldierNames = mission.soldiers.map(s => displayName(s));
 
               return (
                 <tr key={mission.id}>

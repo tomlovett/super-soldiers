@@ -3,6 +3,7 @@ class SoldierSerializer < ActiveModel::Serializer
               :user_id,
               :first_name,
               :last_name,
+              :nickname,
               :gender,
               :nationality,
               :is_alive,
