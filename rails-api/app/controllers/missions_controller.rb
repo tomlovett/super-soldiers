@@ -3,7 +3,7 @@ class MissionsController < ApplicationController
   before_action :set_soldier, only: [:add_soldier, :remove_soldier]
 
   def index
-    @missions = Mission.all
+    @missions = Mission.where(user: @current_user)
     json_response(@missions)
   end
 
