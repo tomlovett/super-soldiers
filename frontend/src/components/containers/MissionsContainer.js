@@ -21,7 +21,7 @@ class MissionsContainer extends React.Component {
   }
 
   submitMission() {
-    console.log('Mission submitted: ', this.state.newMissionName);
+    alert('Mission submitted: ', this.state.newMissionName);
   }
 
   render() {
@@ -38,10 +38,12 @@ class MissionsContainer extends React.Component {
           </thead>
           <tbody>
             {this.props.missions.map((mission) => {
+              const soldierNames = mission.soldiers.map(s => `${s.first_name} ${s.last_name}`);
+
               return (
                 <tr key={mission.id}>
                   <th scope="row">{mission.name}</th>
-                  <td>{mission.soldiers}</td>
+                  <td>{soldierNames.join(', ')}</td>
                 </tr>
               );
             })}
