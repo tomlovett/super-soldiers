@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import MissionForm from '../MissionForm';
 import { missionWithSoldiers } from '../../utils/fixtures/missions';
+import { click, clickSubmit, editInput, getInputValue } from '../../utils/tests/helpers';
 
 const mission = missionWithSoldiers();
 
@@ -17,22 +18,17 @@ describe('<MissionForm />', () => {
     });
 
     it('populates the form with passed-in data', () => {
-      const nameInput = wrapper.find('input[name="name"]');
-
-      expect(nameInput.props().value).toBe('Test Mission');
+      expect(getInputValue(wrapper, 'name')).toBe('Test Mission');
     });
 
     it('allows the user to change the data', () => {
-      const nameInput = wrapper.find('input[name="name"]');
+      editInput(wrapper, 'name', 'Edited Mission');
 
-      nameInput.simulate('change', { target: { value: 'Edited Mission'} } );
-
-      const secondCheck = wrapper.find('input[name="name"]');
-      expect(secondCheck.props().value).toBe('Edited Mission');
+      expect(getInputValue(wrapper, 'name')).toBe('Edited Mission');
     });
 
     it('fires onSubmit when "Save" button is clicked', () => {
-      wrapper.find('input[type="submit"]').simulate('click');
+      clickSubmit(wrapper);
 
       expect(onSubmit).toHaveBeenCalled();
     });
@@ -47,22 +43,19 @@ describe('<MissionForm />', () => {
     });
 
     it('will not call "onSubmit" with empty data', () => {
-      wrapper.find('input[type="submit"]').simulate('click');
+      clickSubmit(wrapper);
 
       expect(onSubmit).not.toHaveBeenCalled();
     });
 
     it('allows the user to change the data', () => {
-      const nameInput = wrapper.find('input[name="name"]');
+      editInput(wrapper, 'name', 'Edited Mission');
 
-      nameInput.simulate('change', { target: { value: 'Edited Mission'} } );
-
-      const secondCheck = wrapper.find('input[name="name"]');
-      expect(secondCheck.props().value).toBe('Edited Mission');
+      expect(getInputValue(wrapper, 'name')).toBe('Edited Mission');
     });
 
     it('fires onSubmit when "Save" button is clicked', () => {
-      wrapper.find('input[type="submit"]').simulate('click');
+      clickSubmit(wrapper);
 
       expect(onSubmit).toHaveBeenCalled();
     });
@@ -86,7 +79,7 @@ describe('<MissionForm />', () => {
     });
 
     it('fires onDelete when "Delete" button is clicked', () => {
-      deleteButton.simulate('click');
+      click(wrapper, 'delete');
 
       expect(onDelete).toHaveBeenCalled();
     });

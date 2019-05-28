@@ -42,7 +42,7 @@ class Mission extends React.Component {
           </h6>
           <p className="col-6">{soldierNames}</p>
           <div className="col-2">
-            <button name="Edit" className="btn btn-primary" onClick={this.handleClickEdit}>Edit</button>
+            <button name="edit" className="btn btn-primary" onClick={this.handleClickEdit}>Edit</button>
           </div>
         </div>
       )

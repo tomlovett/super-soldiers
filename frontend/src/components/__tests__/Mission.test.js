@@ -2,12 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Mission from '../Mission';
 import * as missionFixtures from '../../utils/fixtures/missions';
-
-const click = (wrapper, name) => wrapper.find(`button[name="${name}"`).simulate('click');
-
-const clickSubmit = () => wrapper.find('button[type="submit"]').simulate('click');
-
-const editInput = (wrapper, name, data) => wrapper.find(`input[name="${name}"]`).simulate(('change', { target: { value: data} }));
+import { click, clickSubmit, editInput, getInputValue } from '../../utils/tests/helpers';
 
 const mission = missionFixtures.missionWithSoldiers();
 const onSubmit = jest.fn().mockName('onSubmit');
@@ -37,29 +32,29 @@ describe('<Mission />', () => {
 
     it('shows MissionForm when "edit" button is clicked', () => {
       expect(wrapper.find('MissionForm').exists()).toBeFalsy();
-      wrapper.find('button[name="Edit"]').simulate('click');
+      click(wrapper, 'edit');
 
       expect(wrapper.find('MissionForm').exists()).toBeTruthy();
     });
 
     it('allows the user to edit data', () => {
-      wrapper.find('input[name="name"]').simulate('change', { target: { value: 'Edited Mission'} });
+      editInput(wrapper, 'name', 'Edited Mission');
 
-      expect(wrapper.find('input[name="name"]').props().value).toBe('Edited Mission');
+      expect(getInputValue(wrapper, 'name')).toBe('Edited Mission');
     });
 
     it('returns the data to original state when "Cancel" is clicked', () => {
-      wrapper.find('button[name="cancel"]').simulate('click');
+      click(wrapper, 'cancel');
 
       expect(wrapper.find('MissionForm').exists()).toBeFalsy();
       expect(wrapper.find('h6').text()).toBe('Test Mission');
     });
 
     it('fires "onSave" when save is clicked', () => {
-      wrapper.find('button[name="Edit"]').simulate('click');
-      wrapper.find('input[name="name"]').simulate('change', { target: { value: 'Edited Mission'} });
+      click(wrapper, 'edit');
+      editInput(wrapper, 'name', 'Edited Mission');
 
-      wrapper.find('input[type="submit"]').simulate('click');
+      clickSubmit(wrapper);
 
       setTimeout(() => {
         expect(onSubmit).toHaveBeenCalledWith({name: 'Edited Mission'});
@@ -69,8 +64,8 @@ describe('<Mission />', () => {
 
     it('fires "onDelete" when delete is clicked', () => {
       setTimeout(() => {
-        wrapper.find('button[name="Edit"]').simulate('click');
-        wrapper.find('button[name="delete"]').simulate('click');
+        click(wrapper, 'edit');
+        click(wrapper, 'delete');
 
         expect(onDelete).toHaveBeenCalled();
       }, 200);

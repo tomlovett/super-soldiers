@@ -15,7 +15,7 @@ describe('<HomePage />', () => {
   it('renders', () => {
     const wrapper = shallow(<HomePage actions={actions} user={noUser} history={[]} />);
 
-    expect(wrapper.find('h2').length).toBe(1);
+    expect(wrapper.find('HomePage').exists()).toBeTruthy;
   });
 
   it('renders a Login form and a Register form', () => {
