@@ -9,7 +9,10 @@ export const mission = (props={}) => {
 };
 
 export const missionWithSoldiers = (props={}) => {
-  const soldiers = [soldierFixtures.withoutNickname(), soldierFixtures.withNickname()];
+  const soldiers = [
+    soldierFixtures.withoutNickname(),
+    soldierFixtures.withNickname()
+  ];
 
   return {
     id: props.id || 0,

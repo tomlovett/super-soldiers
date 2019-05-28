@@ -25,7 +25,7 @@ class MissionForm extends React.Component {
   }
 
   render() {
-    const { onSubmit, onDelete } = this.props;
+    const { onSubmit, onDelete, onCancel } = this.props;
     const { mission } = this.state;
 
     return (
@@ -45,6 +45,9 @@ class MissionForm extends React.Component {
             <input type="submit" value="Save" className="btn btn-success" />
           </div>
         </form>
+        {onCancel && <div>
+          <button onClick={onCancel} name="cancel">Cancel</button>
+        </div>}
         {onDelete && <div>
           <button onClick={onDelete} name="delete">Delete</button>
         </div>}

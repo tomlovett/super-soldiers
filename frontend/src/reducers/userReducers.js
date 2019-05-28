@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-const hasToken = { token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTg4NzkzOTJ9.0cZAvRYRRH1O0hImOgysPsb06NGRghhby-vvZuIkh1Q" }
+const hasToken = { token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTkxNDg1ODZ9.VCp5cW1KxhftDBR4_nfKpTeraaWdRBhFtaTy3hRG9S8" }
 
 // export const user = (state = {}, action) => {
 export const user = (state = hasToken, action) => {

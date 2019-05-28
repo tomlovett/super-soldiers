@@ -24,13 +24,18 @@ class Mission extends React.Component {
     const soldierNames = mission.soldiers.map(s => displayName(s)).join(', ');
 
     return this.state.isEditing ? (
-        <MissionForm mission={mission} onSubmit={onSubmit} onDelete={onDelete} />
+        <MissionForm
+          mission={mission}
+          onSubmit={onSubmit}
+          onCancel={this.handleClickEdit}
+          onDelete={onDelete}
+        />
       ) : (
         <tr>
           <th scope="row">{mission.name}</th>
           <td>{soldierNames}</td>
           <td>
-            <button className="btn btn-success" onClick={this.handleClickEdit}> Edit</button>
+            <button name="Edit" className="btn btn-success" onClick={this.handleClickEdit}> Edit</button>
           </td>
         </tr>
       )
