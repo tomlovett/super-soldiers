@@ -14,7 +14,6 @@ export class MissionsContainer extends React.Component {
       newMissionName: ''
     }
 
-    this.editMission = this.editMission.bind(this);
     this.deleteMission = this.deleteMission.bind(this);
     this.submitMission = this.submitMission.bind(this);
   }
@@ -23,8 +22,6 @@ export class MissionsContainer extends React.Component {
     const { token } = this.props.user;
     this.props.actions.fetchMissions(token);
   }
-
-  editMission(mission) { return mission }
 
   deleteMission(mission) { return mission }
 
@@ -37,26 +34,21 @@ export class MissionsContainer extends React.Component {
       <div>
         <h2>Missions</h2>
 
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Mission</th>
-              <th scope="col">Soldiers</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.missions.map((mission) => {
-              return <Mission key={mission.id}
-                mission={mission}
-                onSubmit={this.submitMission}
-                onDelete={this.deleteMission}
-              />
-            })}
-            <tr><td>Add Mission</td></tr>
-            {/* <MissionForm onSubmit={this.submitMission} /> */}
-          </tbody>
-        </table>
+        <div className="container">
+          <div className="row">
+            <div className="col-4"><h4>Name</h4></div>
+            <div className="col-8"><h4>Soldiers</h4></div>
+          </div>
+          {this.props.missions.map((mission) => {
+            return <Mission key={mission.id}
+              mission={mission}
+              onSubmit={this.submitMission}
+              onDelete={this.deleteMission}
+            />
+          })}
+          <div>Add Mission</div>
+          <MissionForm onSubmit={this.submitMission} />
+        </div>
       </div>
     )
   }

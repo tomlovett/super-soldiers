@@ -1,22 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import MissionForm from '../MissionForm';
+import { missionWithSoldiers } from '../../utils/fixtures/missions';
 
-const missionWithSoldiers = {
-  id: 0,
-  name: 'Test Mission',
-  soldiers: [
-    { id: 0, first_name: 'Crash Test', last_name: 'Dummy'},
-    { id: 1, nickname: 'Oscar' },
-  ]
-};
+const mission = missionWithSoldiers();
 
 const onSubmit = jest.fn().mockName('onSubmit');
 const onDelete = jest.fn().mockName('onDelete');
 
 describe('<MissionForm />', () => {
   describe('with Mission prop', () => {
-    const wrapper = shallow(<MissionForm mission={missionWithSoldiers} onSubmit={onSubmit} onDelete={onDelete} />);
+    const wrapper = shallow(<MissionForm mission={mission} onSubmit={onSubmit} onDelete={onDelete} />);
 
     it('renders', () => {
       expect(wrapper.exists()).toBeTruthy();
@@ -38,9 +32,7 @@ describe('<MissionForm />', () => {
     });
 
     it('fires onSubmit when "Save" button is clicked', () => {
-      const saveButton = wrapper.find('input[type="submit"]');
-
-      saveButton.simulate('click');
+      wrapper.find('input[type="submit"]').simulate('click');
 
       expect(onSubmit).toHaveBeenCalled();
     });
@@ -55,7 +47,7 @@ describe('<MissionForm />', () => {
     });
 
     it('will not call "onSubmit" with empty data', () => {
-      saveButton.simulate('click');
+      wrapper.find('input[type="submit"]').simulate('click');
 
       expect(onSubmit).not.toHaveBeenCalled();
     });
@@ -70,7 +62,7 @@ describe('<MissionForm />', () => {
     });
 
     it('fires onSubmit when "Save" button is clicked', () => {
-      saveButton.simulate('click');
+      wrapper.find('input[type="submit"]').simulate('click');
 
       expect(onSubmit).toHaveBeenCalled();
     });

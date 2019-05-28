@@ -29,29 +29,34 @@ class MissionForm extends React.Component {
     const { mission } = this.state;
 
     return (
-      <tr>
+      <div>
         <form onSubmit={e => {
             e.preventDefault();
             onSubmit(mission);
             e.target.reset();
           }}>
-          <div className="form-group">
+          <div className="form-group row">
             <input type="text" name="name"
-              className="form-control"
+              className="form-control col-4"
               placeholder="Name"
               onChange={this.handleChange}
               value={mission.name}
               required />
-            <input type="submit" value="Save" className="btn btn-success" />
+
+            <div className="col d-flex align-items-end justify-content-end">
+              {onCancel && <div>
+                <button onClick={onCancel} name="cancel" className="btn btn-warning">Cancel</button>
+                <pre>&nbsp;</pre>
+              </div>}
+              {onDelete && <div>
+                <button onClick={onDelete} name="delete" className="btn btn-danger">Delete</button>
+                <pre>&nbsp;</pre>
+              </div>}
+              <input type="submit" value="Save" className="btn btn-success" />
+            </div>
           </div>
         </form>
-        {onCancel && <div>
-          <button onClick={onCancel} name="cancel">Cancel</button>
-        </div>}
-        {onDelete && <div>
-          <button onClick={onDelete} name="delete">Delete</button>
-        </div>}
-      </tr>
+      </div>
     )
   }
 }
@@ -59,7 +64,8 @@ class MissionForm extends React.Component {
 MissionForm.propTypes = {
   mission: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+  onCancel: PropTypes.func
 }
 
 export default MissionForm;

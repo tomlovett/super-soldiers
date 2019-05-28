@@ -49,3 +49,4 @@ MISC.
   Serialize Soldiers with Missions
   Encrypt login info
   Soldier avatars
+  Abstract `click(selector)` function in jest tests

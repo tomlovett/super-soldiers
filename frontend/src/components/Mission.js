@@ -12,32 +12,39 @@ class Mission extends React.Component {
     };
 
     this.handleClickEdit = this.handleClickEdit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   handleClickEdit() {
     this.setState({ isEditing: !this.state.isEditing });
   }
 
+  handleOnSubmit(missionData) {
+    this.setState({ isEditing: false });
+    this.props.onSubmit(missionData);
+  }
+
   render() {
-    const { onSubmit, onDelete } = this.props;
-    const { mission } = this.props;
+    const { mission, onDelete } = this.props;
     const soldierNames = mission.soldiers.map(s => displayName(s)).join(', ');
 
     return this.state.isEditing ? (
         <MissionForm
           mission={mission}
-          onSubmit={onSubmit}
+          onSubmit={this.handleOnSubmit}
           onCancel={this.handleClickEdit}
           onDelete={onDelete}
         />
       ) : (
-        <tr>
-          <th scope="row">{mission.name}</th>
-          <td>{soldierNames}</td>
-          <td>
-            <button name="Edit" className="btn btn-success" onClick={this.handleClickEdit}> Edit</button>
-          </td>
-        </tr>
+        <div className="row">
+          <h6 className="col-4">
+            <b>{mission.name}</b>
+          </h6>
+          <p className="col-6">{soldierNames}</p>
+          <div className="col-2">
+            <button name="Edit" className="btn btn-primary" onClick={this.handleClickEdit}>Edit</button>
+          </div>
+        </div>
       )
   }
 }
