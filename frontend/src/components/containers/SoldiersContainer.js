@@ -3,15 +3,28 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as soldierActions from '../../actions/soldierActions';
+import { fullName } from '../../utils/soldiers';
 
-class SoldiersContainer extends React.Component {
+export class SoldiersContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      soldiersQueried: false,
+    };
   }
 
   componentDidMount() {
-    const { token } = this.props.user;
-    this.props.actions.fetchSoldiers(token);
+    const { actions, soldiers, user } = this.props;
+    if (!user.token) {
+      this.props.history.push('/');
+    }
+
+    if (!soldiers.length && !this.state.soldiersQueried) {
+      this.setState({ soldiersQueried: true });
+
+      actions.fetchSoldiers(user.token);
+    }
   }
 
 
@@ -20,26 +33,24 @@ class SoldiersContainer extends React.Component {
       <div>
         <h2>Soldiers</h2>
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Nationality</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.soldiers.map(soldier => {
-            return (
-              <tr key={soldier.id}>
-                <td>{soldier.first_name + ' ' + soldier.last_name}</td>
-                <td>{soldier.gender}</td>
-                <td>{soldier.nationality}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+        <div className="container">
+            <div className="row">
+              <h4 className="col-6">Name</h4>
+              <h4 className="col-2">Gender</h4>
+              <h4 className="col-4">Nationality</h4>
+            </div>
+            <div name="soldiers">
+              {this.props.soldiers.map(soldier => {
+                return (
+                  <div className="row" key={soldier.id}>
+                    <p className="col-6">{fullName(soldier)}</p>
+                    <p className="col-2">{soldier.gender}</p>
+                    <p className="col-4">{soldier.nationality}</p>
+                  </div>
+                );
+              })}
+            </div>
+        </div>
       </div>
     )
   }
@@ -47,6 +58,7 @@ class SoldiersContainer extends React.Component {
 
 SoldiersContainer.propTypes = {
   actions: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   soldiers: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired
 }
