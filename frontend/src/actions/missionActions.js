@@ -9,7 +9,37 @@ export const addMission = (mission, token) => {
     return Axios.post(api.missions, mission, headers)
       .then(res => {
         if (res.status === 201) {
-          dispatch(fetchMissions());
+          dispatch(fetchMissions(token));
+        }
+      })
+      .catch(e => {throw(e)});
+  }
+}
+
+export const updateMission = (mission, token) => {
+  const headers = api.authHeader(token);
+  const url = api.mission(mission);
+
+  return (dispatch) => {
+    return Axios.put(url, mission, headers)
+      .then(res => {
+        if (res.status === 204) {
+          dispatch(fetchMissions(token));
+        }
+      })
+      .catch(e => {throw(e)});
+  }
+}
+
+export const deleteMission = (mission, token) => {
+  const url = api.mission(mission);
+  const headers = api.authHeader(token);
+
+  return (dispatch) => {
+    return Axios.delete(url, headers)
+      .then(res => {
+        if (res.status === 204) {
+          dispatch(fetchMissions(token));
         }
       })
       .catch(e => {throw(e)});

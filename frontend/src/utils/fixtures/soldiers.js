@@ -1,6 +1,6 @@
 export const withoutNickname = (props={}) => {
   return {
-    id: props.id || 0,
+    id: props.id || 1,
     first_name: props.first_name || 'Crash Test',
     nickname: '',
     last_name: props.last_name || 'Dummy',
@@ -12,7 +12,7 @@ export const withoutNickname = (props={}) => {
 
 export const withNickname = (props={}) => {
   return {
-    id: props.id || 0,
+    id: props.id || 1,
     first_name: props.first_name || 'Joe',
     nickname: props.nickname || 'Coastie',
     last_name: props.last_name || 'Smith',

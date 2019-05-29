@@ -14,6 +14,7 @@ export const self = `${baseApi}/self`;
 
 // Missions
 export const missions = `${baseApi}/missions`;
+export const mission = (mission) => `${baseApi}/missions/${mission.id}`
 
 // Soldiers
 export const soldiers = `${baseApi}/soldiers`;

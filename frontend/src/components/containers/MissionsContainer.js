@@ -10,10 +10,6 @@ export class MissionsContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      newMissionName: ''
-    }
-
     this.deleteMission = this.deleteMission.bind(this);
     this.submitMission = this.submitMission.bind(this);
   }
@@ -28,10 +24,17 @@ export class MissionsContainer extends React.Component {
     this.props.actions.fetchMissions(token);
   }
 
-  deleteMission(mission) { return mission }
+  deleteMission(mission) {
+    const { token } = this.props.user;
+
+    this.props.actions.deleteMission(mission, token);
+  }
 
   submitMission(mission) {
-    console.log('Mission submitted: ', mission);
+    const { token } = this.props.user;
+    const { addMission, updateMission } = this.props.actions;
+
+    mission.id ? updateMission(mission, token) : addMission(mission, token);
   }
 
   render() {
@@ -44,6 +47,7 @@ export class MissionsContainer extends React.Component {
             <div className="col-4"><h4>Name</h4></div>
             <div className="col-8"><h4>Soldiers</h4></div>
           </div>
+
           {this.props.missions.map((mission) => {
             return <Mission key={mission.id}
               mission={mission}
@@ -51,8 +55,11 @@ export class MissionsContainer extends React.Component {
               onDelete={this.deleteMission}
             />
           })}
-          <div>Add Mission</div>
-          <MissionForm onSubmit={this.submitMission} />
+
+          <div>
+            <h4>New Mission</h4>
+            <MissionForm onSubmit={this.submitMission} />
+          </div>
         </div>
       </div>
     )

@@ -6,9 +6,7 @@ class MissionForm extends React.Component {
     super(props);
 
     this.state = {
-      mission: {
-        name: ''
-      }
+      name: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,17 +14,17 @@ class MissionForm extends React.Component {
 
   componentDidMount() {
     if (this.props.mission) {
-      this.setState({mission: this.props.mission});
+      this.setState(this.props.mission);
     }
   }
 
   handleChange(e) {
-    this.setState({mission: { name: e.target.value }});
+    this.setState({ name: e.target.value });
   }
 
   render() {
     const { onSubmit, onDelete, onCancel } = this.props;
-    const { mission } = this.state;
+    const mission = this.state;
 
     return (
       <div>
@@ -49,7 +47,7 @@ class MissionForm extends React.Component {
                 <pre>&nbsp;</pre>
               </div>}
               {onDelete && <div>
-                <button onClick={onDelete} name="delete" className="btn btn-danger">Delete</button>
+                <button onClick={() => onDelete(mission)} name="delete" className="btn btn-danger">Delete</button>
                 <pre>&nbsp;</pre>
               </div>}
               <input type="submit" value="Save" className="btn btn-success" />

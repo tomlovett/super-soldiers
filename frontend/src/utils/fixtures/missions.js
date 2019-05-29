@@ -2,7 +2,7 @@ import * as soldierFixtures from './soldiers';
 
 export const mission = (props={}) => {
   return {
-    id: props.id || 0,
+    id: props.id || 1,
     name: props.name || 'Test Mission',
     soldiers: props.soldiers || []
   };
@@ -15,7 +15,7 @@ export const missionWithSoldiers = (props={}) => {
   ];
 
   return {
-    id: props.id || 0,
+    id: props.id || 1,
     name: props.name || 'Test Mission',
     soldiers: props.soldiers || soldiers
   };

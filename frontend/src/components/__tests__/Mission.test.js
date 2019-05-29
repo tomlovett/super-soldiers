@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Mission from '../Mission';
 import * as missionFixtures from '../../utils/fixtures/missions';
-import { click, clickSubmit, editInput, getInputValue } from '../../utils/tests/helpers';
+import { click, submitForm, editInput, getInputValue } from '../../utils/tests/helpers';
 
 const mission = missionFixtures.missionWithSoldiers();
 const onSubmit = jest.fn().mockName('onSubmit');
@@ -53,7 +53,7 @@ describe('<Mission />', () => {
       click(wrapper, 'edit');
       editInput(wrapper, 'name', 'Edited Mission');
 
-      clickSubmit(wrapper);
+      submitForm(wrapper);
 
       setTimeout(() => {
         expect(onSubmit).toHaveBeenCalledWith({name: 'Edited Mission'});

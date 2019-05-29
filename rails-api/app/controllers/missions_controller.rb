@@ -12,7 +12,7 @@ class MissionsController < ApplicationController
   end
 
   def create
-    @mission = Mission.create!(mission_params)
+    @mission = Mission.create!(mission_params.merge({user_id: @current_user.id}))
     json_response(@mission, :created)
   end
 
