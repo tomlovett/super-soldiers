@@ -20,6 +20,11 @@ export class MissionsContainer extends React.Component {
 
   componentDidMount() {
     const { token } = this.props.user;
+
+    if (!token) {
+      this.props.history.push('/');
+    }
+
     this.props.actions.fetchMissions(token);
   }
 
