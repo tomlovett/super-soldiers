@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import MissionForm from '../MissionForm';
 import { missionWithSoldiers } from '../../utils/fixtures/missions';
-import { click, clickSubmit, editInput, getInputValue } from '../../utils/tests/helpers';
+import { click, editInput, getInputValue } from '../../utils/tests/helpers';
 
 const mission = missionWithSoldiers();
 

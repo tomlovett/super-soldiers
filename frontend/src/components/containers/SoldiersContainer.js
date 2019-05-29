@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Soldier from '../Soldier';
 import * as soldierActions from '../../actions/soldierActions';
-import { fullName } from '../../utils/soldiers';
 
 export class SoldiersContainer extends React.Component {
   constructor(props) {
@@ -29,6 +29,7 @@ export class SoldiersContainer extends React.Component {
 
 
   render() {
+    const { soldiers } = this.props;
     return (
       <div>
         <h2>Soldiers</h2>
@@ -39,16 +40,8 @@ export class SoldiersContainer extends React.Component {
               <h4 className="col-2">Gender</h4>
               <h4 className="col-4">Nationality</h4>
             </div>
-            <div name="soldiers">
-              {this.props.soldiers.map(soldier => {
-                return (
-                  <div className="row" key={soldier.id}>
-                    <p className="col-6">{fullName(soldier)}</p>
-                    <p className="col-2">{soldier.gender}</p>
-                    <p className="col-4">{soldier.nationality}</p>
-                  </div>
-                );
-              })}
+            <div>
+              {soldiers.map(s => <Soldier soldier={s} key={s.id} />)}
             </div>
         </div>
       </div>

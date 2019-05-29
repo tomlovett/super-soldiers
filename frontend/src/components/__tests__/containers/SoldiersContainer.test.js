@@ -34,9 +34,7 @@ describe('<SoldiersContainer />', () => {
     });
 
     it('renders all soldiers', () => {
-      const soldierRows = wrapper.find('div[name="soldiers"]').find('.row');
-
-      expect(soldierRows.length).toBe(soldiers.length);
+      expect(wrapper.find('Soldier').length).toBe(soldiers.length);
     });
   });
 
