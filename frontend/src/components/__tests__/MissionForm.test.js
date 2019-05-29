@@ -36,7 +36,6 @@ describe('<MissionForm />', () => {
 
   describe('without Mission prop', () => {
     const wrapper = shallow(<MissionForm onSubmit={onSubmit} onDelete={onDelete} />);
-    const saveButton = wrapper.find('input[type="submit"]');
 
     it('renders', () => {
       expect(wrapper.exists()).toBeTruthy();
