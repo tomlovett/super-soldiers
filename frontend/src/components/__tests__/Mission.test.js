@@ -12,7 +12,6 @@ const onCancel = jest.fn().mockName('onCancel');
 const wrapper = shallow(<Mission mission={mission} onSubmit={onSubmit} onDelete={onDelete} onCancel={onCancel} />);
 
 describe('<Mission />', () => {
-
   it('renders', () => {
     expect(wrapper.exists()).toBeTruthy();
   });

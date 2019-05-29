@@ -50,7 +50,7 @@ export class HomePage extends React.Component {
 
 HomePage.propTypes = {
   actions: PropTypes.object.isRequired,
-  history: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 }
 
