@@ -1,12 +1,12 @@
 import * as types from '../constants/actionTypes';
 
-const hasToken = { token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTkyMzUxMzJ9.KIPcQgi6GYFq0c8v2WijeX73ajifj3xTeWvDXhDjQhc" }
+const hasToken = { token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTk2NTUxNjB9.ISaeK7eKBv8ff95RnkCsT-ruxtsTo8P4DoBfNy4KvT8" }
 
 const fullUser = {
   id: 1,
   email: 'c@work.com',
   name: 'Commander',
-  token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTkyMzUxMzJ9.KIPcQgi6GYFq0c8v2WijeX73ajifj3xTeWvDXhDjQhc"
+  token: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTk2NTUxNjB9.ISaeK7eKBv8ff95RnkCsT-ruxtsTo8P4DoBfNy4KvT8"
 };
 
 // export const user = (state = {}, action) => {

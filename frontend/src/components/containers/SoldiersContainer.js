@@ -41,7 +41,7 @@ export class SoldiersContainer extends React.Component {
               <h4 className="col-4">Nationality</h4>
             </div>
             <div>
-              {soldiers.map(s => <Soldier soldier={s} key={s.id} />)}
+              {soldiers.map(s => <Soldier soldier={s} key={s.id} onSubmit={() => {}} />)}
             </div>
         </div>
       </div>
