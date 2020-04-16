@@ -19,9 +19,9 @@ mongoose
 		process.exit();
 	});
 
-const usersRouter = require('./routes/user.route');
+const soldiersRouter = require('./routes/soldier.route');
 
-// app.use('api/users', usersRouter);
+// app.use('api/soldiers', soldiersRouter);
 
 app.use((req, res, next) => next(createError(404)) );
 
