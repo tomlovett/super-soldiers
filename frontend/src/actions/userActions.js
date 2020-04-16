@@ -2,12 +2,12 @@ import Axios from 'axios';
 import * as types from '../constants/actionTypes';
 import * as api from '../constants/api';
 
-const authSuccess = (token) => {
-  return {
-    type: types.AUTH_SUCCESS,
-    token
-  }
-}
+const authSuccess = token => ({
+  type: types.AUTH_SUCCESS,
+  token,
+})
+
+const logout = () => ({ type: types.LOGOUT })
 
 export function authenticate(user, isLogin) {
   const authUrl = isLogin ? api.login : api.register;
@@ -20,7 +20,7 @@ export function authenticate(user, isLogin) {
         dispatch(authSuccess(token))
         return token;
       })
-      .catch(e => { throw(e) });
+      .catch(e => dispatch(logout()));
   }
 }
 
@@ -41,6 +41,6 @@ export function querySelf(token) {
 
         return res.data.id;
       })
-      .catch(e => { throw(e) });
+      .catch(e => dispatch(logout()));
   }
 }

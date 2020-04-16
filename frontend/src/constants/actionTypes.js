@@ -1,5 +1,6 @@
 // User
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const LOGOUT = 'LOGOUT';
 export const QUERY_SELF_SUCCESS = 'QUERY_SELF_SUCCESS';
 
 // Missions

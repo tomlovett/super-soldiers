@@ -50,3 +50,8 @@ MISC.
   Encrypt login info
   Soldier avatars
   Abstract `click(selector)` function in jest tests
+
+Next:
+	Header component
+		Logout button
+		Navigation
