@@ -25,7 +25,7 @@ describe('/soldiers', () => {
 	});
 });
 
-describe('/soldier/:id', () => {
+describe('/soldiers/:id', () => {
 	const soldierId = 1;
 	const soldierPath = `${path}/${soldierId}`;
 
