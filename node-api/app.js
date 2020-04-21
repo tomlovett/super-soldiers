@@ -1,19 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+console.log('Starting Super Soldiers API...')
 
-mongoose
-	.connect('mongodb://localhost/tddDB', {
-		useNewUrlParser: true,
-		useCreateIndex: true
-	})
-	.then(() => {
-		console.log('Connected to MongoDB at mongodb://localhost/tddDB...')
-	})
-	.catch(e => {
-		console.log('Failed to connect to MongoDB...', e);
-		process.exit();
-	});
+app.get('/api/ping', (req, res) => res.sendStatus(200));
+
+const soldierRouter = express.Router();
+soldierRouter.get('/api/', (req, res) => res.sendStatus(200));
+
+app.listen(3000, () => console.log('Super Soldiers API listening on port 3000'));
