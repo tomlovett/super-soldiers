@@ -27,7 +27,7 @@ UserSchema.methods.setPassword = function(password) {
 UserSchema.methods.generateJWT = function() {
 	const now = new Date();
 	const exp = new Date(now);
-	exp.setDate(today.getDate() + 60);
+	exp.setDate(now.getDate() + 60);
 
 	return jwt.sign({
 		id: this._id,
@@ -38,9 +38,9 @@ UserSchema.methods.generateJWT = function() {
 
 UserSchema.methods.serialize = function() {
 	const { email, name } = this;
-	const token = this.generateJWT();
+	const authToken = this.generateJWT();
 
-	return { email, name, token };
+	return { email, name, authToken };
 }
 
 mongoose.model('User', UserSchema);

@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const methods = require('methods');
+const path = require('path');
 const { soldiers } = require('./routes/soldiers');
 
 console.log('Starting Super Soldiers API...')
@@ -16,17 +18,28 @@ app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost/super_soldiers_node');
 
-app.all('*', (req, res, next) => {
-	const { body, method, path } = req;
-
-	console.log(`${method} ${path}`);
-	if (body) { console.log(`Request body: ${body}`); }
-	next();
-});
-
 require('./models/User');
+require('./config/passport');
+
+app.use(require('./routes'));
 
 app.get('/api/ping', (req, res) => res.sendStatus(200));
 app.use(soldiers);
+
+/// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+	res.status(err.status || 500);
+
+	res.json({'errors': {
+		message: err.message,
+		error: err
+	}});
+});
 
 app.listen(3000, () => console.log('Super Soldiers API listening on port 3000'));
