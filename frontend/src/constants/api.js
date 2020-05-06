@@ -1,4 +1,4 @@
-const baseApi = 'http://localhost:3000';
+const baseApi = 'http://localhost:3000/api';
 
 // Headers
 export const authHeader = (token) => {
@@ -8,7 +8,7 @@ export const authHeader = (token) => {
 }
 
 // User
-export const login = `${baseApi}/auth/login`;
+export const login = `${baseApi}/login`;
 export const register = `${baseApi}/users`;
 export const self = `${baseApi}/self`;
 
