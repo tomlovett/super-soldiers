@@ -1,0 +1,5 @@
+User model (name, email, password)
+	validatePassword, setPassword, serialize
+passport
+Login/Register routes
+	requires passport, crypto, jwt
