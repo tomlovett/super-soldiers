@@ -3,7 +3,7 @@ const baseApi = 'http://localhost:3000/api';
 // Headers
 export const authHeader = (token) => {
   return {
-    headers: { 'Authorization': token }
+    headers: { 'Authorization': `Token ${token}` }
   };
 }
 

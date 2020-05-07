@@ -32,15 +32,16 @@ UserSchema.methods.generateJWT = function() {
 	return jwt.sign({
 		id: this._id,
 		email: this.email,
+		name: this.name,
 		exp: parseInt(exp.getTime() / 1000),
 	}, secret);
 }
 
 UserSchema.methods.serialize = function() {
 	const { email, name } = this;
-	const authToken = this.generateJWT();
+	const auth_token = this.generateJWT();
 
-	return { email, name, authToken };
+	return { email, name, auth_token };
 }
 
 mongoose.model('User', UserSchema);

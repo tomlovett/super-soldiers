@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const router = require('express').Router();
 const passport = require('passport');
 const User = mongoose.model('User');
+const secret = require('../../config').secret;
+const auth = require('../auth');
 
 router.post('/login', (req, res, next) => {
 	const { email, password } = req.body;
@@ -14,8 +16,7 @@ router.post('/login', (req, res, next) => {
 		if (!user) { return res.status(422).json(info); }
 
 		// TODO: JWT already generated in model, correct?
-		user.authToken = user.generateJWT();
-		return res.json({ user: user.serialize() });
+		return res.json({ auth_token: user.generateJWT() });
 	})(req, res, next);
 });
 
@@ -32,9 +33,9 @@ router.post('/users', (req, res, next) => {
 	user.name = name;
 	user.setPassword(password)
 
-	user.save().then(function() {
-		return res.json({ user: user.serialize() })
-	}).catch(next);
+	user.save().then(() => res.json({ auth_token: user.generateJWT() })).catch(next);
 });
+
+router.get('/self', auth.required, (req, res, next) => res.status(200).json(req.user) );
 
 module.exports = router;
