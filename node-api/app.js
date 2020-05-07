@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost/super_soldiers_node');
 
 require('./models/User');
+require('./models/Mission');
 require('./config/passport');
 
 app.use(require('./routes'));
