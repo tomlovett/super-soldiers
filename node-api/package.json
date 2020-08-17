@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "mocha 'test/**/*.js' --recursive  -c --timeout 60000 --exit"
   },
   "keywords": [],
