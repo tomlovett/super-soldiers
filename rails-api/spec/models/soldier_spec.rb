@@ -8,5 +8,5 @@ RSpec.describe Soldier, type: :model do
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:nationality) }
   it { should validate_presence_of(:gender) }
-  it { should validate_presence_of(:is_alive) }
+	it { should validate_inclusion_of(:is_alive).in_array([true, false]) }
 end
