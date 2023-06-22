@@ -156,5 +156,4 @@ RSpec.describe 'Missions API', type: :request do
       end
     end
   end
-
 end

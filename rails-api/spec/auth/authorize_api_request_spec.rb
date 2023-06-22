@@ -17,7 +17,7 @@ RSpec.describe AuthorizeApiRequest do
     context 'with invalid request' do
       context 'with missing token' do
         it 'raises a MissingToken error' do
-          expect {invalid_request_obj.call }.to raise_error(ExceptionHandler::MissingToken, 'Missing token')
+          expect { invalid_request_obj.call }.to raise_error(ExceptionHandler::MissingToken, 'Missing token')
         end
       end
 
@@ -27,7 +27,7 @@ RSpec.describe AuthorizeApiRequest do
         end
 
         it 'raises an InvalidToken error' do
-          expect {invalid_request_obj.call }.to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
+          expect { invalid_request_obj.call }.to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
         end
       end
 
@@ -45,7 +45,9 @@ RSpec.describe AuthorizeApiRequest do
         let(:invalid_request_obj) { described_class.new(header) }
 
         it 'handles JWT::DecodeError' do
-          expect { invalid_request_obj.call }.to raise_error(ExceptionHandler::InvalidToken, /Not enough or too many segments/)
+          expect {
+            invalid_request_obj.call
+          }.to raise_error(ExceptionHandler::InvalidToken, /Not enough or too many segments/)
         end
       end
     end

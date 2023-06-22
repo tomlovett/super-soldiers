@@ -48,7 +48,10 @@ RSpec.describe 'Soldiers API', type: :request do
   end
 
   describe 'POST /soldiers' do
-    let(:valid_attrs) { {first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true, user_id: user.id }.to_json }
+    let(:valid_attrs) {
+      { first_name: 'Mahatma', last_name: 'Gandhi', nationality: 'India', gender: 'm', is_alive: true,
+        user_id: user.id }.to_json
+    }
 
     context 'with valid data' do
       before { post '/soldiers', params: valid_attrs, headers: headers }
@@ -89,7 +92,6 @@ RSpec.describe 'Soldiers API', type: :request do
         expect(response).to have_http_status(204)
       end
     end
-
   end
 
   describe 'DELETE /soldiers/:id' do
