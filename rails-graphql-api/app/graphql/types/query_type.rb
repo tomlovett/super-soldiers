@@ -4,6 +4,12 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
+		field :soldiers, [Types::SoldierType], null: false, description: 'Return a list of soldiers'
+
+		def soldiers
+			Soldiers.all
+		end
+
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
