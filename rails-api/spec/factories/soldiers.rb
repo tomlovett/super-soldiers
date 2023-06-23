@@ -5,5 +5,7 @@ FactoryBot.define do
     nationality { Faker::Address.country }
     gender { Faker::Gender.binary_type }
     is_alive { true }
+
+		user
   end
 end
