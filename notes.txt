@@ -10,20 +10,25 @@ Soldier
   gender
   nationality
   is_alive
-  // num_kills
   // .num_missions
+	// .total_kills
 	// experience - int
-	// class - enum
-	// skills - join table?
+	fighter_class - enum
 Mission
   Name
   User
   Soldiers
-  // KIA - Soldiers
-  // aliens_killed
+  // .aliens_killed
+	// .KIAs
+MissionSoldier
+	hits
+	misses
+	kills
+	was_promoted
+	was_KIA
 Skills
-	name
-	class
+	title
+	fighter_class
 	level
 	desc
 SkillsSoldiers

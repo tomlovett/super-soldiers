@@ -4,6 +4,7 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     nationality { Faker::Address.country }
     gender { Faker::Gender.binary_type }
+    fighter_class { Soldier::ALL_FIGHTER_CLASSES.sample }
     is_alive { true }
 
     user
