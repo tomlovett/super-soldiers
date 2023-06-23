@@ -57,15 +57,43 @@ RSpec.describe Soldier, type: :model do
     end
   end
 
-  # describe '#career_kills' do
-  #
-  # end
-  #
-  # describe '#career_missions' do
-  #
-  # end
-  #
-  # describe '#career_accuracy' do
-  #
-  # end
+  describe '#career_kills' do
+    let(:soldier) { create(:soldier) }
+
+    context 'with zero missions' do
+      it { expect(soldier.career_kills).to eq(0) }
+    end
+
+    context 'with no kills from missions' do
+      let!(:missions_soldiers) { create_list(:missions_soldier, 4, soldier: soldier, kills: 0) }
+
+      it { expect(soldier.career_kills).to eq(0) }
+    end
+
+    context 'with kills from one mission' do
+      let!(:missions_soldier) { create(:missions_soldier, soldier: soldier, kills: 3) }
+
+      it { expect(soldier.career_kills).to eq(3) }
+    end
+
+    context 'with kills from multiple missions' do
+      let!(:missions_soldier) { create_list(:missions_soldier, 2, soldier: soldier, kills: 3) }
+
+      it { expect(soldier.career_kills).to eq(6) }
+    end
+  end
+
+  describe '#career_missions' do
+    let(:soldier) { create(:soldier) }
+
+    context 'with zero missions' do
+      it { expect(soldier.career_missions).to eq(0) }
+    end
+
+    context 'with multiple missions' do
+      let!(:missions_soldier) { create_list(:missions_soldier, 2, soldier: soldier) }
+
+      it { expect(soldier.career_missions).to eq(2) }
+    end
+  end
 end

@@ -37,6 +37,10 @@ class Soldier < ApplicationRecord
     Colonel = "Colonel"
   end
 
+  # def to_s
+  # 	nickname.present? ? nickname : "#{first_name} #{last_name}"
+  # end
+
   # for backend calculation
   def level
     case exp
@@ -71,5 +75,20 @@ class Soldier < ApplicationRecord
     else
       RANK::Colonel
     end
+  end
+
+  def career_kills
+    missions_soldiers.sum(:kills)
+  end
+
+  def career_missions
+    missions_soldiers.count
+  end
+
+  def career_accuracy
+    hits = missions_soldiers.sum(:hits)
+    misses = missions_soldiers.sum(:misses)
+
+    (100 * hits / (hits + misses)).round
   end
 end
