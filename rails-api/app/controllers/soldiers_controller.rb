@@ -27,7 +27,7 @@ class SoldiersController < ApplicationController
   private
 
   def soldier_params
-    params.permit(:user_id, :first_name, :last_name, :nationality, :gender, :is_alive)
+    params.permit(:user_id, :first_name, :last_name, :nationality, :gender, :is_alive, :fighter_class)
   end
 
   def set_soldier

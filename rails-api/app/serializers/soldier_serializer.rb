@@ -10,6 +10,6 @@ class SoldierSerializer < ActiveModel::Serializer
               :mission_ids
 
   def mission_ids
-    object.missions.ids
+    MissionsSoldier.where(soldier_id: object.id).pluck(:id)
   end
 end

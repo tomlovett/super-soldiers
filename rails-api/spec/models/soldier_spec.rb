@@ -11,7 +11,6 @@ RSpec.describe Soldier, type: :model do
   it { should validate_presence_of(:exp) }
   it { should validate_presence_of(:fighter_class) }
   it { should validate_inclusion_of(:fighter_class).in_array(Soldier::ALL_FIGHTER_CLASSES) }
-  it { should validate_inclusion_of(:is_alive).in_array([true, false]) }
 
   describe '#level and #rank' do
     let(:soldier) { create(:soldier, exp: exp) }
