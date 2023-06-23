@@ -2,7 +2,7 @@ class Soldier < ApplicationRecord
   belongs_to :user
   has_many :missions_soldiers
 
-  validates_presence_of :first_name, :last_name, :nationality, :gender, :exp, :fighter_class
+  validates_presence_of :first_name, :last_name, :nationality, :gender, :exp
 
   class FIGHTER_CLASS
     Ranger = "Ranger"
@@ -20,15 +20,8 @@ class Soldier < ApplicationRecord
     FIGHTER_CLASS::Psi_Operative,
   ]
 
-  validates_inclusion_of :fighter_class, in: [
-    FIGHTER_CLASS::Ranger,
-    FIGHTER_CLASS::Grenadier,
-    FIGHTER_CLASS::Specialist,
-    FIGHTER_CLASS::Sharpshooter,
-    FIGHTER_CLASS::Psi_Operative
-  ]
-
   class RANK
+    Squaddie = "Squaddie"
     Corporal = "Corporal"
     Sergeant = "Sergeant"
     Lieutenant = "Lieutenant"
@@ -54,8 +47,10 @@ class Soldier < ApplicationRecord
       3
     when 1000..1999
       4
-    else
+    when 2000..3999
       5
+    else
+      6
     end
   end
 
@@ -63,14 +58,16 @@ class Soldier < ApplicationRecord
   def rank
     case level
     when 0
-      RANK::Corporal
+      RANK::Squaddie
     when 1
-      RANK::Sergeant
+      RANK::Corporal
     when 2
-      RANK::Lieutenant
+      RANK::Sergeant
     when 3
-      RANK::Captain
+      RANK::Lieutenant
     when 4
+      RANK::Captain
+    when 5
       RANK::Major
     else
       RANK::Colonel

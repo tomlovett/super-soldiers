@@ -9,8 +9,6 @@ RSpec.describe Soldier, type: :model do
   it { should validate_presence_of(:nationality) }
   it { should validate_presence_of(:gender) }
   it { should validate_presence_of(:exp) }
-  it { should validate_presence_of(:fighter_class) }
-  it { should validate_inclusion_of(:fighter_class).in_array(Soldier::ALL_FIGHTER_CLASSES) }
 
   describe '#level and #rank' do
     let(:soldier) { create(:soldier, exp: exp) }
@@ -18,42 +16,51 @@ RSpec.describe Soldier, type: :model do
 
     context 'with 0 XP' do
       it { expect(soldier.level).to eq(0) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Corporal) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Squaddie) }
+      it { expect(soldier.fighter_class).to be_nil } # Class not assigned until Corporal
     end
 
     context 'with 100-249 XP' do
       let(:exp) { Faker::Number.between(from: 100, to: 249) }
 
       it { expect(soldier.level).to eq(1) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Sergeant) }
+			it { expect(soldier.rank).to eq(Soldier::RANK::Corporal) }
+			it { expect(soldier.fighter_class).not_to be_nil }
     end
 
     context 'with 250-499 XP' do
       let(:exp) { Faker::Number.between(from: 250, to: 499) }
 
       it { expect(soldier.level).to eq(2) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Lieutenant) }
+			it { expect(soldier.rank).to eq(Soldier::RANK::Sergeant) }
     end
 
     context 'with 500-999 XP' do
       let(:exp) { Faker::Number.between(from: 500, to: 999) }
 
       it { expect(soldier.level).to eq(3) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Captain) }
+			it { expect(soldier.rank).to eq(Soldier::RANK::Lieutenant) }
     end
 
     context 'with 1000-1999 XP' do
       let(:exp) { Faker::Number.between(from: 1000, to: 1999) }
 
       it { expect(soldier.level).to eq(4) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Major) }
+			it { expect(soldier.rank).to eq(Soldier::RANK::Captain) }
     end
 
-    context 'with >2000 XP' do
-      let(:exp) { 2134 }
+		context 'with 2000-3999 XP' do
+      let(:exp) { Faker::Number.between(from: 2000, to: 3999) }
 
       it { expect(soldier.level).to eq(5) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Colonel) }
+			it { expect(soldier.rank).to eq(Soldier::RANK::Major) }
+    end
+
+    context 'with >4000 XP' do
+      let(:exp) { 4321 }
+
+      it { expect(soldier.level).to eq(6) }
+			it { expect(soldier.rank).to eq(Soldier::RANK::Colonel) }
     end
   end
 
