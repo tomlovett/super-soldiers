@@ -1,6 +1,7 @@
 class Soldier < ApplicationRecord
   belongs_to :user
   has_many :missions_soldiers
+  has_and_belongs_to_many :skills
 
   validates_presence_of :first_name, :last_name, :nationality, :gender, :exp
 
@@ -21,6 +22,7 @@ class Soldier < ApplicationRecord
   ]
 
   class RANK
+    Rookie = "Rookie"
     Squaddie = "Squaddie"
     Corporal = "Corporal"
     Sergeant = "Sergeant"
@@ -43,16 +45,18 @@ class Soldier < ApplicationRecord
   def rank
     case level
     when 0
-      RANK::Squaddie
+      RANK::Rookie
     when 1
-      RANK::Corporal
+      RANK::Squaddie
     when 2
-      RANK::Sergeant
+      RANK::Corporal
     when 3
-      RANK::Lieutenant
+      RANK::Sergeant
     when 4
-      RANK::Captain
+      RANK::Lieutenant
     when 5
+      RANK::Captain
+    when 6
       RANK::Major
     else
       RANK::Colonel
@@ -66,12 +70,14 @@ class Soldier < ApplicationRecord
 
   def promote
     # Fighter class randomnly assigned on promotion from Squaddie to Corporal
-    self.update!(fighter_class: ALL_FIGHTER_CLASSES.sample) if rank == RANK::Corporal
+    self.update!(fighter_class: ALL_FIGHTER_CLASSES.sample) if rank == RANK::Squaddie
 
     # Don't select a skill if they're dead
     return unless is_alive
 
-    # select next skill
+    new_skill = Skill.where(fighter_class: fighter_class, level: level).order('RANDOM()').take
+
+    SkillsSoldier.create!(soldier: self, skill: new_skill)
   end
 
   def career_kills
@@ -105,8 +111,10 @@ class Soldier < ApplicationRecord
       4
     when 2000..3999
       5
-    else
+    when 4000..7999
       6
+    else
+      7
     end
   end
 end

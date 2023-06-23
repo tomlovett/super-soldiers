@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_23_140205) do
+ActiveRecord::Schema.define(version: 2023_06_23_171424) do
   create_table "missions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -27,6 +27,21 @@ ActiveRecord::Schema.define(version: 2023_06_23_140205) do
     t.boolean "was_promoted"
     t.boolean "was_KIA"
     t.integer "exp_gained", default: 0, null: false
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.text "desc"
+    t.string "fighter_class"
+    t.integer "level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "skills_soldiers", id: false, force: :cascade do |t|
+    t.integer "soldier_id", null: false
+    t.integer "skill_id", null: false
+    t.index ["soldier_id"], name: "index_skills_soldiers_on_soldier_id"
   end
 
   create_table "soldiers", force: :cascade do |t|

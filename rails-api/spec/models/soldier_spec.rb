@@ -16,7 +16,7 @@ RSpec.describe Soldier, type: :model do
 
     context 'with 0 XP' do
       it { expect(soldier.level).to eq(0) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Squaddie) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Rookie) }
       it { expect(soldier.fighter_class).to be_nil } # Class not assigned until Corporal
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Soldier, type: :model do
       let(:exp) { Faker::Number.between(from: 100, to: 249) }
 
       it { expect(soldier.level).to eq(1) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Corporal) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Squaddie) }
       it { expect(soldier.fighter_class).not_to be_nil }
     end
 
@@ -32,24 +32,31 @@ RSpec.describe Soldier, type: :model do
       let(:exp) { Faker::Number.between(from: 250, to: 499) }
 
       it { expect(soldier.level).to eq(2) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Sergeant) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Corporal) }
     end
 
     context 'with 500-999 XP' do
       let(:exp) { Faker::Number.between(from: 500, to: 999) }
 
       it { expect(soldier.level).to eq(3) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Lieutenant) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Sergeant) }
     end
 
     context 'with 1000-1999 XP' do
       let(:exp) { Faker::Number.between(from: 1000, to: 1999) }
 
       it { expect(soldier.level).to eq(4) }
-      it { expect(soldier.rank).to eq(Soldier::RANK::Captain) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Lieutenant) }
     end
 
     context 'with 2000-3999 XP' do
+      let(:exp) { Faker::Number.between(from: 2000, to: 3999) }
+
+      it { expect(soldier.level).to eq(5) }
+      it { expect(soldier.rank).to eq(Soldier::RANK::Captain) }
+    end
+
+    context 'with 4000-7999 XP' do
       let(:exp) { Faker::Number.between(from: 2000, to: 3999) }
 
       it { expect(soldier.level).to eq(5) }

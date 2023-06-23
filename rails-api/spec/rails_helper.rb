@@ -56,6 +56,8 @@ RSpec.configure do |config|
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed # Application requires Skill seed
+
     DatabaseCleaner.strategy = :transaction
   end
 

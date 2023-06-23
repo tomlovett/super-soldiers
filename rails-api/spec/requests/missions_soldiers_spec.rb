@@ -82,7 +82,8 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
         soldier.reload
 
         expect(soldier.exp).to eq(150)
-        expect(soldier.rank).to eq(Soldier::RANK::Corporal)
+        expect(soldier.rank).to eq(Soldier::RANK::Squaddie)
+        expect(soldier.skills.count).to eq(1)
         expect(soldier.fighter_class).not_to be_nil
       end
     end
