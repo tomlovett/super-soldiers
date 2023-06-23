@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   # scope '/api' do
   resources :soldiers
   resources :missions
+  resources :missions_soldiers
 
   get '/self', to: 'users#show'
-
-  post 'missions/:id/soldiers/:soldier_id', to: 'missions#add_soldier'
-  delete 'missions/:id/soldiers/:soldier_id', to: 'missions#remove_soldier'
 
   post 'login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'

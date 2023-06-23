@@ -12,12 +12,23 @@ Soldier
   is_alive
   // num_kills
   // .num_missions
+	// experience - int
+	// class - enum
+	// skills - join table?
 Mission
   Name
   User
   Soldiers
   // KIA - Soldiers
   // aliens_killed
+Skills
+	name
+	class
+	level
+	desc
+SkillsSoldiers
+	soldier_id
+	skill_id
 
 FRONTEND
 Routes

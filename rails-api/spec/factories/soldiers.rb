@@ -6,6 +6,6 @@ FactoryBot.define do
     gender { Faker::Gender.binary_type }
     is_alive { true }
 
-		user
+    user
   end
 end

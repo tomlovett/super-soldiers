@@ -1,6 +1,5 @@
 class MissionsController < ApplicationController
-  before_action :set_mission, only: [:show, :update, :destroy, :add_soldier, :remove_soldier]
-  before_action :set_soldier, only: [:add_soldier, :remove_soldier]
+  before_action :set_mission, only: [:show, :update, :destroy]
 
   def index
     @missions = Mission.where(user: @current_user)
@@ -25,15 +24,6 @@ class MissionsController < ApplicationController
     head :no_content
   end
 
-  def add_soldier
-    @mission.soldiers << @soldier
-  end
-
-  def remove_soldier
-    @mission.soldiers.delete(@soldier)
-    head :no_content
-  end
-
   private
 
   def mission_params
@@ -42,9 +32,5 @@ class MissionsController < ApplicationController
 
   def set_mission
     @mission = Mission.find(params[:id])
-  end
-
-  def set_soldier
-    @soldier = Soldier.find(params[:soldier_id])
   end
 end
