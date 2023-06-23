@@ -6,7 +6,7 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
   let(:soldier) { create(:soldier, user: user) }
   let(:mission) { create(:mission, user: user) }
   let(:missions_soldier) { create(:missions_soldier, mission: mission, soldier: soldier) }
-  let(:complete_performance_data) do
+  let(:mission_data) do
     {
       mission_id: mission.id,
       soldier_id: soldier.id,
@@ -14,7 +14,8 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
       misses: 1,
       kills: 1,
       was_promoted: true,
-      was_KIA: false
+      was_KIA: false,
+      exp_gained: 0
     }
   end
 
@@ -42,7 +43,7 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
   describe 'POST /missions_soldiers/:id' do
     before { post '/missions_soldiers/', headers: headers, params: body.to_json }
 
-    let(:body) { complete_performance_data }
+    let(:body) { mission_data }
 
     context 'with complete performance data' do
       it 'creates a MissionsSoldier record with the performance data' do
@@ -57,9 +58,33 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
     end
 
     context 'with incomplete performance data' do
-      let(:body) { complete_performance_data.except(:kills) }
+      let(:body) { mission_data.except(:kills) }
 
       it { expect(response.status).to eq(422) }
+    end
+
+    context 'when a soldier was killed on that mission' do
+      let(:body) { mission_data.merge({ was_KIA: true, misses: 99 }) }
+
+      it 'updates the Soldier record as well' do
+        soldier.reload
+
+        expect(soldier.is_alive).to be(false) # :(
+        expect(MissionsSoldier.first.misses).to eq(99)
+      end
+    end
+
+    context 'when a soldier gains XP and levels up to Corporal' do # checks multiple features
+      let(:soldier) { create(:soldier, :squaddie) }
+      let(:body) { mission_data.merge({ exp_gained: 150 }) }
+
+      it 'changes the soldiers level and applies a figher class' do
+        soldier.reload
+
+        expect(soldier.exp).to eq(150)
+        expect(soldier.rank).to eq(Soldier::RANK::Corporal)
+        expect(soldier.fighter_class).not_to be_nil
+      end
     end
 
     context 'with a deceased soldier' do
@@ -67,31 +92,6 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
 
       it 'does not create the record' do
         expect(response).to have_http_status(422)
-      end
-    end
-  end
-
-  describe 'PUT /missions_soldiers/:id' do
-    before { put "/missions_soldiers/#{missions_soldier.id}", headers: headers, params: params.to_json }
-    # Set hits to 99 since that is greater than anything Faker will generate for that field
-
-    let(:params) { { hits: 99 } }
-
-    it 'updates the record' do
-      expect(response).to have_http_status(202)
-      expect(json['hits']).to eq(99)
-
-      expect(MissionsSoldier.first.hits).to eq(99)
-    end
-
-    context 'when a soldier was killed on that mission' do
-      let(:params) { { was_KIA: true, misses: 99 } }
-
-      it 'updates the Soldier record as well' do
-        recently_deceased_soldier = Soldier.find(missions_soldier.soldier_id)
-
-        expect(recently_deceased_soldier.is_alive).to be(false) # :(
-        expect(MissionsSoldier.first.misses).to eq(99)
       end
     end
   end

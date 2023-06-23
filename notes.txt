@@ -27,10 +27,10 @@ MissionSoldier
 	was_promoted
 	was_KIA
 Skills
-	title
+	name
+	desc
 	fighter_class
 	level
-	desc
 SkillsSoldiers
 	soldier_id
 	skill_id

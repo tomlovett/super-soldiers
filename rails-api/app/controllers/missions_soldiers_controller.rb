@@ -1,5 +1,6 @@
 class MissionsSoldiersController < ApplicationController
-  before_action :set_missions_soldier, only: [:show, :update, :destroy]
+  before_action :set_missions_soldier, only: [:show, :destroy]
+  before_action :set_soldier, only: [:create]
 
   def index
     @missions_soldiers = MissionsSoldier.where(user: @current_user)
@@ -11,18 +12,14 @@ class MissionsSoldiersController < ApplicationController
   end
 
   def create
-    return head :unprocessable_entity if soldier_is_deceased?
+    return head :unprocessable_entity if !@soldier.is_alive?
 
     @missions_soldier = MissionsSoldier.create!(create_params)
-    json_response(@missions_soldier, :created)
-  end
-
-  def update
-    @missions_soldier.update(update_params)
 
     register_death_if_applicable
+    apply_experience_to_soldier
 
-    json_response(@missions_soldier, :accepted)
+    json_response(@missions_soldier, :created)
   end
 
   def destroy
@@ -34,25 +31,30 @@ class MissionsSoldiersController < ApplicationController
 
   def create_params
     params.require(:missions_soldier).permit(
-      :mission_id, :soldier_id, :hits, :misses, :kills, :was_promoted, :was_KIA
+      :mission_id, :soldier_id, :hits, :misses, :kills, :was_promoted, :was_KIA, :exp_gained
     )
-  end
-
-  def update_params
-    params.permit(:hits, :misses, :kills, :was_promoted, :was_KIA)
   end
 
   def set_missions_soldier
     @missions_soldier = MissionsSoldier.find(params[:id])
   end
 
-  def soldier_is_deceased?
-    !Soldier.find(create_params[:soldier_id]).is_alive?
+  def set_soldier
+    @soldier = Soldier.find(create_params[:soldier_id])
+  end
+
+  def apply_experience_to_soldier
+    exp_gained = create_params[:exp_gained]
+    @soldier.exp += exp_gained
+
+    @soldier.save!
+
+    @soldier.promote if @soldier.earned_promotion?(exp_gained)
   end
 
   def register_death_if_applicable
-    return unless update_params.has_key?(:was_KIA) && update_params[:was_KIA]
+    return unless create_params[:was_KIA]
 
-    Soldier.find(@missions_soldier.soldier_id).update!({ is_alive: false }) # o7 :(
+    @soldier.update!({ is_alive: false }) # o7 :(
   end
 end

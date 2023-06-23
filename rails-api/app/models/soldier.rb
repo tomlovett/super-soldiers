@@ -36,22 +36,7 @@ class Soldier < ApplicationRecord
 
   # for backend calculation
   def level
-    case exp
-    when 0..99
-      0
-    when 100..249
-      1
-    when 250..499
-      2
-    when 500..999
-      3
-    when 1000..1999
-      4
-    when 2000..3999
-      5
-    else
-      6
-    end
+    exp_to_level(exp)
   end
 
   # returns human-readable string
@@ -74,6 +59,21 @@ class Soldier < ApplicationRecord
     end
   end
 
+  # Called after XP from a mission has been applied and saved to record
+  def earned_promotion?(exp_gained_on_mission)
+    level != exp_to_level(exp - exp_gained_on_mission)
+  end
+
+  def promote
+    # Fighter class randomnly assigned on promotion from Squaddie to Corporal
+    self.update!(fighter_class: ALL_FIGHTER_CLASSES.sample) if rank == RANK::Corporal
+
+    # Don't select a skill if they're dead
+    return unless is_alive
+
+    # select next skill
+  end
+
   def career_kills
     missions_soldiers.sum(:kills)
   end
@@ -87,5 +87,26 @@ class Soldier < ApplicationRecord
     misses = missions_soldiers.sum(:misses)
 
     (100 * hits / (hits + misses)).round
+  end
+
+  private
+
+  def exp_to_level(xp)
+    case xp
+    when 0..99
+      0
+    when 100..249
+      1
+    when 250..499
+      2
+    when 500..999
+      3
+    when 1000..1999
+      4
+    when 2000..3999
+      5
+    else
+      6
+    end
   end
 end

@@ -5,6 +5,7 @@ FactoryBot.define do
     kills { Faker::Number.digit }
     was_promoted { Faker::Boolean.boolean }
     was_KIA { Faker::Boolean.boolean }
+    exp_gained { Faker::Number.digit * 10 }
 
     mission
     soldier
