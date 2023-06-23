@@ -7,5 +7,9 @@ FactoryBot.define do
     is_alive { true }
 
     user
+
+    trait :no_longer_with_us do
+      is_alive { false } # :( o7
+    end
   end
 end

@@ -42,9 +42,9 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
   describe 'POST /missions_soldiers/:id' do
     before { post '/missions_soldiers/', headers: headers, params: body.to_json }
 
-    context 'with complete performance data' do
-      let(:body) { complete_performance_data }
+    let(:body) { complete_performance_data }
 
+    context 'with complete performance data' do
       it 'creates a MissionsSoldier record with the performance data' do
         expect(response).to have_http_status(201)
 
@@ -61,17 +61,38 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
 
       it { expect(response.status).to eq(422) }
     end
+
+    context 'with a deceased soldier' do
+      let(:soldier) { create(:soldier, :no_longer_with_us) }
+
+      it 'does not create the record' do
+        expect(response).to have_http_status(422)
+      end
+    end
   end
 
   describe 'PUT /missions_soldiers/:id' do
-    before { put "/missions_soldiers/#{missions_soldier.id}", headers: headers, params: { hits: 99 }.to_json }
+    before { put "/missions_soldiers/#{missions_soldier.id}", headers: headers, params: params.to_json }
     # Set hits to 99 since that is greater than anything Faker will generate for that field
+
+    let(:params) { { hits: 99 } }
 
     it 'updates the record' do
       expect(response).to have_http_status(202)
       expect(json['hits']).to eq(99)
 
       expect(MissionsSoldier.first.hits).to eq(99)
+    end
+
+    context 'when a soldier was killed on that mission' do
+      let(:params) { { was_KIA: true, misses: 99 } }
+
+      it 'updates the Soldier record as well' do
+        recently_deceased_soldier = Soldier.find(missions_soldier.soldier_id)
+
+        expect(recently_deceased_soldier.is_alive).to be(false) # :(
+        expect(MissionsSoldier.first.misses).to eq(99)
+      end
     end
   end
 
