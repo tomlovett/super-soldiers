@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const router = require('express').Router();
+const missions = require('express').Router();
 const Mission = mongoose.model('Mission');
 const auth = require('../auth');
 
-router.route('/missions')
+missions.route('/')
 	.all(auth.required)
 	.get((req, res, next) => {
 		Mission.find({ user_id: req.user.id })
@@ -19,7 +19,7 @@ router.route('/missions')
 			.catch(next);
 	});
 
-router.route('/missions/:id')
+missions.route('/:id')
 	.all(auth.required, (req, res, next) => {
 		Mission.findById(req.params.id).then(mission => {
 			if (!mission) { return res.sendStatus(404); }
@@ -37,4 +37,4 @@ router.route('/missions/:id')
 	})
 	.delete((req, res, next) => req.mission.remove().then(() => res.sendStatus(204)).catch(next) );
 
-module.exports = router;
+module.exports = missions;

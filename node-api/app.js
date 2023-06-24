@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const methods = require('methods');
 const path = require('path');
-const { soldiers } = require('./routes/soldiers');
 
 console.log('Starting Super Soldiers API...')
 
@@ -25,7 +24,6 @@ require('./config/passport');
 app.use(require('./routes'));
 
 app.get('/api/ping', (req, res) => res.sendStatus(200));
-app.use(soldiers);
 
 /// catch 404 and forward to error handler
 app.use((req, res, next) => {
