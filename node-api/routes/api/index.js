@@ -1,20 +1,20 @@
-const router = require('express').Router();
+const router = require('express').Router()
 
-router.use('/', require('./users'));
-router.use('/missions', require('./missions'));
-router.use('/soldiers', require('./soldiers'));
+router.use('/', require('./users'))
+router.use('/missions', require('./missions'))
+router.use('/soldiers', require('./soldiers'))
 
 router.use((err, req, res, next) => {
-	if (err.name === 'ValidationError') {
-		return res.status(422).json({
-			errors: Object.keys(err.errors).reduce((errors, key) => {
-				errors[key] = err.errors[key].message;
+  if (err.name === 'ValidationError') {
+    return res.status(422).json({
+      errors: Object.keys(err.errors).reduce((errors, key) => {
+        errors[key] = err.errors[key].message
 
-				return errors;
-			}, {})
-		});
-	}
-	return next(err);
-});
+        return errors
+      }, {})
+    })
+  }
+  return next(err)
+})
 
-module.exports = router;
+module.exports = router
