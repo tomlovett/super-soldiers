@@ -1,5 +1,9 @@
 const router = require('express').Router()
 
+// router.use((req, res, next) => {
+// 	// if headers present, decode and attach user to request
+// }))
+
 router.use('/', require('./users'))
 router.use('/missions', require('./missions'))
 router.use('/soldiers', require('./soldiers'))

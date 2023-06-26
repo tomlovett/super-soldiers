@@ -11,4 +11,4 @@ const MissionSchema = new mongoose.Schema({
 MissionSchema.virtual('id').get(function() { return this._id.toHexString() })
 MissionSchema.set('toJSON', { virtuals: true })
 
-mongoose.model('Mission', MissionSchema)
+module.exports = mongoose.model('Mission', MissionSchema)

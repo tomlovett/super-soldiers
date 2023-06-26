@@ -3,9 +3,11 @@ const missions = require('express').Router()
 const Mission = mongoose.model('Mission')
 const auth = require('../auth')
 
+missions.use(auth.optional)
+
 missions.route('/')
-  .all(auth.required)
   .get((req, res, next) => {
+		// breaks if it gets past here
     Mission.find({ user_id: req.user.id })
       .then(missions => res.status(200).json(missions))
       .catch(next)
@@ -20,7 +22,7 @@ missions.route('/')
   })
 
 missions.route('/:id')
-  .all(auth.required, (req, res, next) => {
+	.all((req, res, next) => {
     Mission.findById(req.params.id).then(mission => {
       if (!mission) { return res.sendStatus(404) }
       if (req.user.id !== mission.user_id.toString()) { return res.sendStatus(401) }

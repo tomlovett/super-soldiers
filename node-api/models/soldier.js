@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema, Types: { ObjectId } } = mongoose
 
-const Soldier = new Schema({
+const SoldierSchema = new Schema({
   id: ObjectId,
   firstName: String,
   lastName: String,
@@ -17,4 +17,4 @@ const Soldier = new Schema({
   nickname: String
 })
 
-module.exports = { Soldier }
+module.exports = mongoose.model('Soldier', SoldierSchema)

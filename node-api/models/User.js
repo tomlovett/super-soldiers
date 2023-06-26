@@ -44,4 +44,4 @@ UserSchema.methods.serialize = function() {
   return { email, name, auth_token }
 }
 
-mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

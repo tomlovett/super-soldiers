@@ -9,7 +9,7 @@ soldierController.createSoldiers = (req, res) => Soldier.create(req.body)
 
 soldierController.getSoldier = (req, res) => Soldier.find({ id: req.params.id })
 
-soldierController.updateSoldier = (req, res) => Soldier.update({ req.params.id }, req.body);
+soldierController.updateSoldier = (req, res) => Soldier.findOneAndUpdate({ id: req.params.id }, req.body);
 
 soldierController.deleteSoldier = (req, res) => Soldier.deleteOne({ id: req.params.id })
 

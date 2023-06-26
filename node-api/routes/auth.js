@@ -12,15 +12,8 @@ function getToken(req) {
 }
 
 const auth = {
-  required: jwt({
-    secret,
-    getToken,
-  }),
-  optional: jwt({
-    secret,
-    getToken,
-    credentialsRequired: false,
-  }),
+  required: jwt({ secret, getToken }),
+  optional: jwt({ secret, getToken, credentialsRequired: false }),
 }
 
 module.exports = auth
