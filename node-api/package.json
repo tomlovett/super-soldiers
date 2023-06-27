@@ -4,15 +4,18 @@
   "description": "Node with ES6",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha 'test/**/*.js' --recursive  -c --timeout 60000 --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
+    "chai": "^4.3.7",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
+    "mocha": "^10.2.0",
     "winston": "^3.9.0"
   },
   "devDependencies": {

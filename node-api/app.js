@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const debug = require('debug')
 const expressWinston = require('express-winston')
 
@@ -8,8 +9,11 @@ const app = express()
 const debugLog = debug('app')
 
 app.use(express.json())
+app.use(cors())
 
 app.use(expressWinston.logger(loggerOptions))
+
+// connect to database
 
 app.get('/api/ping', (req, res) => res.sendStatus(200))
 app.post('/api/echo', (req, res) => res.status(200).send(req.body))
@@ -28,6 +32,7 @@ app.use((err, req, res) => {
 })
 
 app.listen(3000, () => {
-	debugLog('Super Soldiers API listening on port 3000') // not working
-	console.log('Super Soldiers API listening on port 3000')
+  debugLog('Super Soldiers API listening on port 3000') // not working
+  // eslint-disable-next-line no-console
+  console.log('Super Soldiers API listening on port 3000')
 })
