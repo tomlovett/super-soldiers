@@ -2,18 +2,21 @@ const express = require('express')
 const cors = require('cors')
 const debug = require('debug')
 const expressWinston = require('express-winston')
+const { Sequelize } = require('sequelize')
 
 const { loggerOptions } = require('./config/config')
 
 const app = express()
-const debugLog = debug('app')
+const debugLog = debug('app:')
 
 app.use(express.json())
 app.use(cors())
 
 app.use(expressWinston.logger(loggerOptions))
 
-// connect to database
+const sequelize = new Sequelize('sqlite::memory', { logging: (msg) => debug('db:', msg) })
+// eslint-disable-next-line no-console
+sequelize.authenticate().then(() => console.log('Connection to SQLite established'))
 
 app.get('/api/ping', (req, res) => res.sendStatus(200))
 app.post('/api/echo', (req, res) => res.status(200).send(req.body))
