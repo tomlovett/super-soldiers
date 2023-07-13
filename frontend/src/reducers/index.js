@@ -1,14 +1,14 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
-import { missions } from './missionReducers';
-import { soldiers } from './soldierReducers';
-import { user } from './userReducers';
+import { missions } from './missionReducers'
+import { soldiers } from './soldierReducers'
+import { user } from './userReducers'
 
 const rootReducer = history => combineReducers({
-  missions,
-  soldiers,
-  user,
-  router: connectRouter(history),
-});
+	missions,
+	soldiers,
+	user,
+	router: connectRouter(history),
+})
 
-export default rootReducer;
+export default rootReducer
