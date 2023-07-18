@@ -62,11 +62,9 @@ complete_skill_tree = [
   { name: 'Capacitor Discharge', level: 7, fighter_class: Soldier::FIGHTER_CLASS::Specialist, desc: 'A skill thingy' },
 ]
 
-complete_skill_tree.each { |skill| Skill.create!(skill) }
+complete_skill_tree.each { |skill| Skill.create!(skill) } if Skill.count == 0
 
-return unless ENV['RAILS_ENV'] == 'development'
-
-user = User.create(name: 'Commander', email: 'c@work.com', password: 'pass', password_confirmation: 'pass')
+user = User.create(name: 'Commander', email: 'c@work.com', password: 'password', password_confirmation: 'password')
 
 bart = Soldier.create(
   first_name: 'Bart', last_name: 'Chrysler', nationality: 'USA', gender: 'm', is_alive: true, user: user
