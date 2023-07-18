@@ -1,5 +1,5 @@
 class MissionSerializer < ActiveModel::Serializer
-  attributes :id, :name, :user_id, :soldiers
+  attributes :id, :name, :user_id, :missions_soldiers, :soldiers
 
   def soldiers
     MissionsSoldier.where(mission_id: object.id).joins(:soldier).select(
