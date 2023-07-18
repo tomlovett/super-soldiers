@@ -1,4 +1,4 @@
-const baseApi = 'http://localhost:3000/api'
+const baseApi = 'http://localhost:3000'
 
 // Headers
 export const authHeader = (token) => {
