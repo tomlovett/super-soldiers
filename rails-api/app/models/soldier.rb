@@ -36,6 +36,19 @@ class Soldier < ApplicationRecord
   # 	nickname.present? ? nickname : "#{first_name} #{last_name}"
   # end
 
+  def add_to_mission(mission, performance)
+    MissionsSoldier.create!(
+      mission: mission,
+      soldier: self,
+      hits: performance[:hits],
+      misses: performance[:misses],
+      kills: performance[:kills],
+      exp_gained: performance[:exp_gained],
+      was_promoted: performance[:was_promoted] || false,
+      was_KIA: performance[:was_KIA] || false
+    )
+  end
+
   # for backend calculation
   def level
     exp_to_level(exp)

@@ -10,6 +10,36 @@ RSpec.describe Soldier, type: :model do
   it { should validate_presence_of(:gender) }
   it { should validate_presence_of(:exp) }
 
+  describe '#add_to_mission' do
+    let(:soldier) { create(:soldier) }
+    let(:mission) { create(:mission) }
+    let(:performance) do
+      {
+        hits: 1,
+        misses: 2,
+        kills: 1,
+        exp_gained: 11,
+        was_KIA: false,
+        was_promoted: true
+      }.to_h
+    end
+
+    context 'with valid data' do
+      it 'creates a new MissionsSoldier record' do
+        soldier.add_to_mission(mission, performance)
+
+        expect(MissionsSoldier.where(soldier: soldier, mission: mission).count).to eq(1)
+
+        missions_soldier = MissionsSoldier.take
+
+        expect(missions_soldier.mission.id).to eq(mission.id)
+        expect(missions_soldier.soldier.id).to eq(soldier.id)
+        expect(missions_soldier.hits).to eq(1)
+        expect(missions_soldier.was_promoted).to be(true)
+      end
+    end
+  end
+
   describe '#level and #rank' do
     let(:soldier) { create(:soldier, exp: exp) }
     let(:exp) { 0 }
@@ -57,16 +87,16 @@ RSpec.describe Soldier, type: :model do
     end
 
     context 'with 4000-7999 XP' do
-      let(:exp) { Faker::Number.between(from: 2000, to: 3999) }
+      let(:exp) { Faker::Number.between(from: 4000, to: 7999) }
 
-      it { expect(soldier.level).to eq(5) }
+      it { expect(soldier.level).to eq(6) }
       it { expect(soldier.rank).to eq(Soldier::RANK::Major) }
     end
 
     context 'with >4000 XP' do
-      let(:exp) { 4321 }
+      let(:exp) { 9321 }
 
-      it { expect(soldier.level).to eq(6) }
+      it { expect(soldier.level).to eq(7) }
       it { expect(soldier.rank).to eq(Soldier::RANK::Colonel) }
     end
   end

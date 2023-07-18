@@ -64,6 +64,8 @@ complete_skill_tree = [
 
 complete_skill_tree.each { |skill| Skill.create!(skill) } if Skill.count == 0
 
+return if Rails.env == "test"
+
 user = User.create(name: 'Commander', email: 'c@work.com', password: 'password', password_confirmation: 'password')
 
 bart = Soldier.create(
@@ -82,14 +84,12 @@ uncle_joey = Soldier.create(
   first_name: 'Joey', last_name: 'Diaz', nickname: 'CoCo', nationality: 'Cuba', gender: 'm', is_alive: true, user: user
 )
 
-# cool_guy = Mission.create(name: 'Cool Guy', user: user)
-# cool_guy.soldiers << bart
-# cool_guy.soldiers << lee
-# cool_guy.soldiers << crystal
-# cool_guy.soldiers << tommy
+cool_guy = Mission.create(name: 'Cool Guy', user: user)
 
-# try_it_out = Mission.create(name: 'Try It Out', user: user)
-# try_it_out.soldiers << tommy
-# try_it_out.soldiers << crystal
-# try_it_out.soldiers << uncle_joey
-# try_it_out.soldiers << bart
+base_performance = { hits: 1, misses: 2, kills: 1, exp_gained: 12, was_KIA: false, was_promoted: true }.to_h
+
+bart.add_to_mission(cool_guy, base_performance)
+lee.add_to_mission(cool_guy, base_performance)
+crystal.add_to_mission(cool_guy, base_performance)
+tommy.add_to_mission(cool_guy, base_performance)
+uncle_joey.add_to_mission(cool_guy, base_performance)
