@@ -1,11 +1,7 @@
 const baseApi = 'http://localhost:3000'
 
 // Headers
-export const authHeader = (token) => {
-	return {
-		headers: { 'Authorization': `Token ${token}` }
-	}
-}
+export const authHeader = (token) => ({ headers: { 'Authorization': `Token ${token}` } })
 
 // User
 export const login = `${baseApi}/login`

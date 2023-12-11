@@ -41,6 +41,8 @@ class MissionForm extends React.Component {
 							value={mission.name}
 							required />
 
+						{/* List each soldiers; edit/ delete */}
+
 						<div className="col d-flex align-items-end justify-content-end">
 							{onCancel && <div>
 								<button onClick={onCancel} name="cancel" className="btn btn-warning">Cancel</button>
