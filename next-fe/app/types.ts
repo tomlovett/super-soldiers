@@ -3,13 +3,13 @@ export type Mission = {
 };
 
 export type Soldier = {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   nationality: string;
   gender: string;
-  is_alive: boolean;
-  user_id: number;
-  nickname: string;
-  fighter_class: string;
+  isAlive: boolean;
+  userId?: number;
+  nickname: string | null;
+  fighterClass: string;
   exp: number;
 };
