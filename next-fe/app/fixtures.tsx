@@ -36,7 +36,10 @@ export const soldiers: Soldier[] = [
   },
 ];
 
-export const missions: Mission[] = [{ name: "The Big Shebang" }];
+export const missions: Mission[] = [
+  { name: "The Big Shebang" },
+  { name: "The Lusty Barmaid" },
+];
 
 export const missionPerformances: MissionPerformance[] = [
   {
