@@ -13,3 +13,14 @@ export type Soldier = {
   fighterClass: string;
   exp: number;
 };
+
+export type MissionPerformance = {
+  missionId: number;
+  soldierId: number;
+  hits: number;
+  misses: number;
+  kills: number;
+  expGained: number;
+  wasKIA: boolean;
+  wasPromoted: boolean;
+};

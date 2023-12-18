@@ -1,4 +1,4 @@
-import type { Soldier } from "../types";
+import type { MissionPerformance, Soldier } from "../types";
 import {
   ROOKIE,
   SQUADDIE,
@@ -45,4 +45,22 @@ export const rank = (soldier: Soldier): string => {
     default:
       return COLONEL;
   }
+};
+
+export const careerPerformance = (
+  missionPerfs: MissionPerformance[],
+): { kills: number; accuracy: number } => {
+  let kills = 0;
+  let hits = 0;
+  let misses = 0;
+
+  missionPerfs.map((missionPerf) => {
+    kills += missionPerf.kills;
+    hits += missionPerf.hits;
+    misses += missionPerf.misses;
+  });
+
+  const accuracy = Math.round((100 * hits) / (hits + misses));
+
+  return { kills, accuracy };
 };
