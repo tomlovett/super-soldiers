@@ -25,15 +25,13 @@ const PerformanceSlice = ({
       <div className="min-w-0 flex-auto">
         <p className="text-sm font-semibold leading-6 text-slate-200">
           {displayName(soldier)}
-					<span className="text-red-600">{perf.wasKIA ? " X" : ""}</span>
+          <span className="text-red-600">{perf.wasKIA ? " X" : ""}</span>
         </p>
         <p className="mt-1 truncate text-xs leading-5 text-slate-300">
           <span className="uppercase">{rank(soldier)}</span>{" "}
           {soldier.fighterClass}
         </p>
-				<p>
-
-				</p>
+        <p>{/* stats */}</p>
       </div>
     </Link>
   </li>

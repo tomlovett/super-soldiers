@@ -14,6 +14,7 @@ export type sliceProps = {
   missionName: string;
 };
 
+// Extract this and missions/[id] PerformanceSlice into single component
 const MissionPerformanceSlice = ({
   missionPerformance,
   missionName,
