@@ -1,12 +1,12 @@
-import type { Soldier } from "../types";
-import { rank, displayName } from "../utils/soldier";
-import { soldiers } from "../fixtures";
+import type { Soldier } from '../types';
+import { rank, displayName } from '../utils/soldier';
+import { soldiers } from '../fixtures';
 
 const soldiersList: Soldier[] = soldiers;
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
-  const text: string = soldier.isAlive ? "Active" : "KIA";
-  const textColor: string = soldier.isAlive ? "text-green-600" : "text-red-600";
+  const text: string = soldier.isAlive ? 'Active' : 'KIA';
+  const textColor: string = soldier.isAlive ? 'text-green-600' : 'text-red-600';
 
   return <span className={textColor}>{text}</span>;
 };
@@ -24,7 +24,7 @@ const SoldierCard = ({ soldier }: { soldier: Soldier }): JSX.Element => (
           {displayName(soldier)}
         </p>
         <p className="mt-1 truncate text-xs leading-5 text-slate-300">
-          <span className="uppercase">{rank(soldier)}</span>{" "}
+          <span className="uppercase">{rank(soldier)}</span>{' '}
           {soldier.fighterClass}
         </p>
       </div>

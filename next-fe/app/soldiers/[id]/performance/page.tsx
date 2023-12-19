@@ -1,6 +1,6 @@
-import Link from "next/link";
-import type { MissionPerformance } from "../../../types";
-import { missionPerformances } from "../../../fixtures";
+import Link from 'next/link';
+import type { MissionPerformance } from '../../../types';
+import { missionPerformances } from '../../../fixtures';
 
 const statsByline = ({ hits, misses, kills }: MissionPerformance): string => {
   const percentage = hits / (hits + misses);
@@ -20,7 +20,7 @@ const MissionPerformanceSlice = ({
   missionName,
 }: sliceProps): JSX.Element => (
   <Link href="/missions">
-    {" "}
+    {' '}
     {/* this Link component breaks the dividers between LI's */}
     <li className="flex justify-between gap-x-6 py-5">
       <div className="flex min-w-0 gap-x-4">
@@ -31,10 +31,10 @@ const MissionPerformanceSlice = ({
           <p className="mt-1 truncate text-xs leading-5 text-slate-300">
             {statsByline(missionPerformance)}
             <span className="text-yellow-400">
-              {missionPerformance.wasPromoted ? " ^" : ""}
+              {missionPerformance.wasPromoted ? ' ^' : ''}
             </span>
             <span className="text-red-600">
-              {missionPerformance.wasKIA ? " X" : ""}
+              {missionPerformance.wasKIA ? ' X' : ''}
             </span>
           </p>
         </div>
@@ -49,7 +49,7 @@ const PerformancePage = (): JSX.Element => (
       {missionPerformances.map((missionPerf) => (
         <MissionPerformanceSlice
           missionPerformance={missionPerf}
-          missionName={"Da Mission"}
+          missionName={'Da Mission'}
           key={missionPerf.missionId}
         />
       ))}

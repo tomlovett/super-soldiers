@@ -1,8 +1,8 @@
-import type { Mission } from "../../app/types";
+import type { Mission } from '../../app/types';
 
 const missionsList: Mission[] = [
-  { name: "Testarooski" },
-  { name: "Fumblerooski" },
+  { name: 'Testarooski' },
+  { name: 'Fumblerooski' },
 ];
 
 const MissionCard = ({ name }: Mission) => (

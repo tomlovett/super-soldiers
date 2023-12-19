@@ -1,4 +1,4 @@
-import type { MissionPerformance, Soldier } from "../types";
+import type { MissionPerformance, Soldier } from '../types';
 import {
   ROOKIE,
   SQUADDIE,
@@ -8,12 +8,12 @@ import {
   CAPTAIN,
   MAJOR,
   COLONEL,
-} from "../constants";
+} from '../constants';
 
 export const displayName = (soldier: Soldier): string =>
   !!soldier.nickname
     ? soldier.nickname
-    : soldier.firstName + " " + soldier.lastName;
+    : soldier.firstName + ' ' + soldier.lastName;
 
 export const level = (soldier: Soldier): number => {
   if (soldier.exp < 100) return 0;
