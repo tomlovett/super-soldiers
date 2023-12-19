@@ -6,7 +6,7 @@
     "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start",
-    "lint": "npx prettier --write . && next lint --fix"
+    "lint": "npx prettier --write . && next lint"
   },
   "dependencies": {
     "next": "14.0.4",
@@ -15,7 +15,6 @@
     "swr": "^2.2.4"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^1.5.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
