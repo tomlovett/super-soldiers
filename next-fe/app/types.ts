@@ -3,8 +3,8 @@ export type Mission = {
 };
 
 export type Soldier = {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   nationality: string;
   gender: string;
   isAlive: boolean;
