@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import type { Soldier } from './types';
 
 export type RequestPayload = Record<
   string,
@@ -8,14 +8,25 @@ export type RequestPayload = Record<
 type FetcherProps = {
   path: string;
 } & Partial<{
+  method: string;
   options: RequestInit;
   data: RequestPayload | RequestPayload[];
 }>;
 
-type apiRes = {
-  data?: any;
-  errror?: any;
-  isLoading: any;
+type FetchOptions = {
+  headers: any;
+  path: string;
+  method: string;
+  body?: string;
+};
+
+const defaultOpts = {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer: getToken()',
+    'Access-Control-Allow-Origin': '*',
+  },
+  method: 'GET',
 };
 
 class ApiClient {
@@ -23,31 +34,40 @@ class ApiClient {
 
   // https://stackoverflow.com/questions/63313799/typescript-argument-cant-use-any-in-fetch
   private fetcher = async <T>(options: FetcherProps): Promise<T> => {
-    const { path, options: _options, data } = options;
+    let fetchOpts: FetchOptions = Object.assign(defaultOpts, options);
 
-    let fetchOpts = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'getToken()',
-      },
-      ..._options,
-    };
-
-    if (data) {
-      fetchOpts.body = JSON.stringify(data);
+    if (options.data) {
+      fetchOpts.body = JSON.stringify(options.data);
     }
 
+    const { path } = options;
     const fullPath: string = path.includes('http')
       ? path
-      : 'localhost:3000' + path;
+      : 'http://localhost:3000' + path;
 
-    return fetch(fullPath, fetchOpts).then((res) => res.json());
+    let response: Response;
+
+    try {
+      response = await fetch(fullPath, fetchOpts);
+
+      if (!response?.ok) {
+        if (typeof window !== 'undefined') {
+          return Promise.reject(
+            new Error(`${response.status}: ${response.statusText}`),
+          );
+        } else {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+      }
+
+      return await response.json();
+    } catch (error) {
+      throw new Error(`response.json() error: ${error}`);
+    }
   };
 
-  sendRequest = (opts: any): apiRes => useSWR(this.fetcher, opts);
-
-  getSoldiers = async (opts: any) =>
-    this.sendRequest({ path: '/soldiers', method: 'GET', ...opts });
+  useSoldiers = async () =>
+    await this.fetcher<Soldier[]>({ path: '/soldiers' });
 }
 
 const apiClient = new ApiClient();

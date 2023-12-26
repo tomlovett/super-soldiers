@@ -1,8 +1,6 @@
 import type { Soldier } from '../types';
 import { rank, displayName } from '../utils/soldier';
-import { soldiers } from '../fixtures';
-
-const soldiersList: Soldier[] = soldiers;
+import apiClient from '../api';
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
   const text: string = soldier.isAlive ? 'Active' : 'KIA';
@@ -38,14 +36,18 @@ const SoldierCard = ({ soldier }: { soldier: Soldier }): JSX.Element => (
   </li>
 );
 
-const SoldiersPage = (): JSX.Element => (
-  <div className="container mx-auto px-8 items-center justify-between p-12">
-    <ul role="list" className="column divide-y divide-gray-400">
-      {soldiersList.map((soldier) => (
-        <SoldierCard soldier={soldier} key={displayName(soldier)} />
-      ))}
-    </ul>
-  </div>
-);
+const SoldiersPage = async () => {
+  const soldiersList: Soldier[] = await apiClient.useSoldiers();
+
+  return (
+    <div className="container mx-auto px-8 items-center justify-between p-12">
+      <ul role="list" className="column divide-y divide-gray-400">
+        {soldiersList.map((soldier) => (
+          <SoldierCard soldier={soldier} key={displayName(soldier)} />
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default SoldiersPage;
