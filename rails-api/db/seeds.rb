@@ -135,8 +135,8 @@ def dummy_performance
   perf[:misses] = (0..6).to_a.sample
   perf[:kills] = (perf[:hits] / 3.0) + (0..2).to_a.sample
   perf[:exp_gained] = perf[:kills] * [25, 50, 100, 200, 400].sample
-  perf[:was_KIA] = rand() < 0.9
-  perf[:was_promoted] = rand() < 0.8
+  perf[:was_KIA] = rand() > 0.9
+  perf[:was_promoted] = rand() > 0.8
 
   perf
 end
