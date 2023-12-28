@@ -20,7 +20,7 @@ type FetchOptions = {
 const defaultOpts = {
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer: getToken()',
+    Authorization: '',
     'Access-Control-Allow-Origin': '*',
   },
   method: 'GET',
@@ -28,6 +28,9 @@ const defaultOpts = {
 
 class ApiClient {
   constructor() {}
+
+  private getAuthToken = (): string | void =>
+    'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MDM4NjY1NTF9.jt3EtEHjK9iV65pke3uiLXjNwmPrUJzoU6W8xDIl8zo'
 
   // https://stackoverflow.com/questions/63313799/typescript-argument-cant-use-any-in-fetch
   private fetcher = async <T>(options: FetcherProps): Promise<T> => {
@@ -37,11 +40,12 @@ class ApiClient {
       fetchOpts.body = JSON.stringify(options.data)
     }
 
+    fetchOpts.headers.Authorization = 'Bearer: ' + this.getAuthToken()
+
     const { path } = options
     const fullPath: string = path.includes('http') ? path : 'http://localhost:3000' + path
 
     let response: Response
-
 
     try {
       response = await fetch(fullPath, fetchOpts)
