@@ -1,4 +1,4 @@
-import type { Soldier, Mission, MissionPerformance } from './types';
+import type { Soldier, Mission, MissionPerformance } from './types'
 
 export const soldiers: Soldier[] = [
   {
@@ -34,12 +34,9 @@ export const soldiers: Soldier[] = [
     fighter_class: 'Sniper',
     exp: 0,
   },
-];
+]
 
-export const missions: Mission[] = [
-  { name: 'The Big Shebang' },
-  { name: 'The Lusty Barmaid' },
-];
+export const missions: Mission[] = [{ name: 'The Big Shebang' }, { name: 'The Lusty Barmaid' }]
 
 export const missionPerformances: MissionPerformance[] = [
   {
@@ -62,4 +59,4 @@ export const missionPerformances: MissionPerformance[] = [
     was_KIA: false,
     was_promoted: false,
   },
-];
+]

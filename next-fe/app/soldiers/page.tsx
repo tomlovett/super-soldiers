@@ -1,13 +1,13 @@
-import type { Soldier } from '../types';
-import { rank, displayName } from '../utils/soldier';
-import apiClient from '../api';
+import type { Soldier } from '../types'
+import { rank, displayName } from '../utils/soldier'
+import apiClient from '../api'
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
-  const text: string = soldier.is_alive ? 'Active' : 'KIA';
-  const textColor: string = soldier.is_alive ? 'text-green-600' : 'text-red-600';
+  const text: string = soldier.is_alive ? 'Active' : 'KIA'
+  const textColor: string = soldier.is_alive ? 'text-green-600' : 'text-red-600'
 
-  return <span className={textColor}>{text}</span>;
-};
+  return <span className={textColor}>{text}</span>
+}
 
 const SoldierCard = ({ soldier }: { soldier: Soldier }): JSX.Element => (
   <li className="flex justify-between gap-x-6 py-5">
@@ -18,36 +18,34 @@ const SoldierCard = ({ soldier }: { soldier: Soldier }): JSX.Element => (
         alt=""
       />
       <div className="min-w-0 flex-auto">
-        <p className="text-sm font-semibold leading-6 text-slate-200">
-          {displayName(soldier)}
-        </p>
+        <p className="text-sm font-semibold leading-6 text-slate-200">{displayName(soldier)}</p>
         <p className="mt-1 truncate text-xs leading-5 text-slate-300">
-          <span className="uppercase">{rank(soldier)}</span>{' '}
-          {soldier.fighterClass}
+          <span className="uppercase">{rank(soldier)}</span> {soldier.fighter_class}
         </p>
       </div>
     </div>
     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
       <p className="text-sm leading-6 text-slate-400">{soldier.nationality}</p>
-      <p className="mt-1 text-xs leading-5 text-slate-500">
-        {mortalityStatus(soldier)}
-      </p>
+      <p className="mt-1 text-xs leading-5 text-slate-500">{mortalityStatus(soldier)}</p>
     </div>
   </li>
-);
+)
 
 const SoldiersPage = async () => {
-  const soldiersList: Soldier[] = await apiClient.useSoldiers();
+  const soldiersList: Soldier[] = await apiClient.useSoldiers()
 
   return (
-    <div className="container mx-auto px-8 items-center justify-between p-12">
-      <ul role="list" className="column divide-y divide-gray-400">
-        {soldiersList.map((soldier) => (
-          <SoldierCard soldier={soldier} key={displayName(soldier)} />
-        ))}
-      </ul>
-    </div>
-  );
-};
+    <>
+      <h2>Soldiers</h2>
+      <div className="container mx-auto px-8 items-center justify-between p-12">
+        <ul role="list" className="column divide-y divide-gray-400">
+          {soldiersList.map((soldier) => (
+            <SoldierCard soldier={soldier} key={displayName(soldier)} />
+          ))}
+        </ul>
+      </div>
+    </>
+  )
+}
 
-export default SoldiersPage;
+export default SoldiersPage

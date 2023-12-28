@@ -1,18 +1,13 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 const Home = () => (
   <main className="flex min-h-screen flex-col items-center justify-between p-24">
     <div className="mx-auto max-w-2xl lg:text-center">
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-        Super Soldiers
-      </h1>
-      <h3 className="mt-6 text-lg leading-8 text-indigo-600">
-        The best in modern XCOM mission-tracking
-      </h3>
+      <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Super Soldiers</h1>
+      <h3 className="mt-6 text-lg leading-8 text-indigo-600">The best in modern XCOM mission-tracking</h3>
       <p className="mt-6 text-lg leading-8 text-gray-600">
-        Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
-        Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In
-        mi viverra elit nunc.
+        Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar
+        et feugiat blandit at. In mi viverra elit nunc.
       </p>
     </div>
 
@@ -27,8 +22,8 @@ const Home = () => (
               View Missions
             </dt>
             <dd className="mt-2 text-base leading-7 text-gray-600">
-              Morbi viverra dui mi arcu sed. Tellus semper adipiscing
-              suspendisse semper morbi. Odio urna massa nunc massa.
+              Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc
+              massa.
             </dd>
           </div>
         </Link>
@@ -41,13 +36,13 @@ const Home = () => (
             View Soldiers
           </dt>
           <dd className="mt-2 text-base leading-7 text-gray-600">
-            Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget.
-            Sem sodales gravida quam turpis enim lacus amet.
+            Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim
+            lacus amet.
           </dd>
         </div>
       </dl>
     </div>
   </main>
-);
+)
 
-export default Home;
+export default Home

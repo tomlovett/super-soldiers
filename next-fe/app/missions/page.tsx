@@ -1,9 +1,6 @@
-import type { Mission } from '../../app/types';
+import type { Mission } from '../../app/types'
 
-const missionsList: Mission[] = [
-  { name: 'Testarooski' },
-  { name: 'Fumblerooski' },
-];
+const missionsList: Mission[] = [{ name: 'Testarooski' }, { name: 'Fumblerooski' }]
 
 const MissionCard = ({ name }: Mission) => (
   <li className="flex justify-between gap-x-6 py-5">
@@ -15,9 +12,7 @@ const MissionCard = ({ name }: Mission) => (
       />
       <div className="min-w-0 flex-auto">
         <p className="text-sm font-semibold leading-6 text-slate-200">{name}</p>
-        <p className="mt-1 truncate text-xs leading-5 text-slate-300">
-          Lorem details
-        </p>
+        <p className="mt-1 truncate text-xs leading-5 text-slate-300">Lorem details</p>
       </div>
     </div>
     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
@@ -27,16 +22,19 @@ const MissionCard = ({ name }: Mission) => (
       </p>
     </div>
   </li>
-);
+)
 
 const MissionsPage = () => (
-  <div className="container mx-auto px-8 items-center justify-between p-12">
-    <ul role="list" className="column divide-y divide-gray-400">
-      {missionsList.map((mission) => (
-        <MissionCard name={mission.name} key={mission.name} />
-      ))}
-    </ul>
-  </div>
-);
+  <>
+    <h2>Missions</h2>
+    <div className="container mx-auto px-8 items-center justify-between p-12">
+      <ul role="list" className="column divide-y divide-gray-400">
+        {missionsList.map((mission) => (
+          <MissionCard name={mission.name} key={mission.name} />
+        ))}
+      </ul>
+    </div>
+  </>
+)
 
-export default MissionsPage;
+export default MissionsPage
