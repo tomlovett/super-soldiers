@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 complete_skill_tree = [
   { name: 'Slash', level: 1, fighter_class: Soldier::FIGHTER_CLASS::Ranger, desc: 'A skill thingy' },
   { name: 'Phantom', level: 2, fighter_class: Soldier::FIGHTER_CLASS::Ranger, desc: 'A skill thingy' },
@@ -69,27 +61,95 @@ return if Rails.env == "test"
 user = User.create(name: 'Commander', email: 'c@work.com', password: 'password', password_confirmation: 'password')
 
 bart = Soldier.create(
-  first_name: 'Bart', last_name: 'Chrysler', nationality: 'USA', gender: 'm', is_alive: true, user: user
+  first_name: 'Bart',
+  last_name: 'Chrysler',
+  nationality: 'USA',
+  gender: 'm',
+  is_alive: true,
+  user: user,
+  exp: 8069,
+  fighter_class: Soldier::FIGHTER_CLASS::Grenadier
 )
 lee = Soldier.create(
-  first_name: 'Lee', last_name: 'Syatt', nationality: 'Israel', gender: 'm', is_alive: true, user: user
+  first_name: 'Lee',
+  last_name: 'Syatt',
+  nationality: 'Israel',
+  gender: 'm',
+  is_alive: true,
+  user: user,
+  exp: 0,
+  fighter_class: nil
+)
+bobby = Soldier.create(
+  first_name: 'Bobby',
+  last_name: 'Lee',
+  nationality: 'Korea',
+  gender: 'm',
+  is_alive: false,
+  user: user,
+  exp: 1,
+  fighter_class: nil
 )
 crystal = Soldier.create(
-  first_name: 'Christina', last_name: 'P', nationality: 'Poland', gender: 'f', is_alive: true, user: user
+  first_name: 'Christina',
+  last_name: 'P',
+  nationality: 'Poland',
+  gender: 'f',
+  is_alive: true,
+  user: user,
+  exp: 1023,
+  fighter_class: Soldier::FIGHTER_CLASS::Specialist
 )
 tommy = Soldier.create(
-  first_name: 'Tom', last_name: 'Segura', nickname: 'Tommy Buns', nationality: 'Peru', gender: 'm', is_alive: true, user: user
+  first_name: 'Tom',
+  last_name: 'Segura',
+  nickname: 'Tommy Buns',
+  nationality: 'Peru',
+  gender: 'm',
+  is_alive: true,
+  user: user,
+  exp: 8069,
+  fighter_class: Soldier::FIGHTER_CLASS::Ranger
 )
 uncle_joey = Soldier.create(
-  first_name: 'Joey', last_name: 'Diaz', nickname: 'CoCo', nationality: 'Cuba', gender: 'm', is_alive: true, user: user
+  first_name: 'Joey',
+  last_name: 'Diaz',
+  nickname: 'CoCo', nationality: 'Cuba',
+  gender: 'm',
+  is_alive: true,
+  user: user,
+  exp: 4123,
+  fighter_class: Soldier::FIGHTER_CLASS::Grenadier
 )
 
+# TODO: assign skills to each soldier
+
 cool_guy = Mission.create(name: 'Cool Guy', user: user)
+curation = Mission.create(name: 'TikTok Curation', user: user)
+bonanza = Mission.create(name: 'Banana Bonanza', user: user)
 
-base_performance = { hits: 1, misses: 2, kills: 1, exp_gained: 12, was_KIA: false, was_promoted: true }.to_h
+def dummy_performance
+  perf = {}
 
-bart.add_to_mission(cool_guy, base_performance)
-lee.add_to_mission(cool_guy, base_performance)
-crystal.add_to_mission(cool_guy, base_performance)
-tommy.add_to_mission(cool_guy, base_performance)
-uncle_joey.add_to_mission(cool_guy, base_performance)
+  perf[:hits] = (0..12).to_a.sample
+  perf[:misses] = (0..6).to_a.sample
+  perf[:kills] = (perf[:hits] / 3.0) + (0..2).to_a.sample
+  perf[:exp_gained] = perf[:kills] * [25, 50, 100, 200, 400].sample
+  perf[:was_KIA] = rand() < 0.9
+  perf[:was_promoted] = rand() < 0.8
+
+  perf
+end
+
+bart.add_to_mission(cool_guy, dummy_performance)
+bart.add_to_mission(bonanza, dummy_performance)
+bobby.add_to_mission(cool_guy, dummy_performance)
+bobby.add_to_mission(curation, dummy_performance)
+lee.add_to_mission(curation, dummy_performance)
+lee.add_to_mission(bonanza, dummy_performance)
+crystal.add_to_mission(cool_guy, dummy_performance)
+crystal.add_to_mission(curation, dummy_performance)
+tommy.add_to_mission(cool_guy, dummy_performance)
+tommy.add_to_mission(bonanza, dummy_performance)
+uncle_joey.add_to_mission(curation, dummy_performance)
+uncle_joey.add_to_mission(bonanza, dummy_performance)

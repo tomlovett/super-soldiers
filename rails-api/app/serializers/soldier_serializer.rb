@@ -7,7 +7,9 @@ class SoldierSerializer < ActiveModel::Serializer
               :gender,
               :nationality,
               :is_alive,
-              :mission_ids
+              :mission_ids,
+              :exp,
+              :fighter_class
 
   def mission_ids
     MissionsSoldier.where(soldier_id: object.id).pluck(:id)
