@@ -1,4 +1,4 @@
-import type { Soldier } from './types'
+import type { Mission, Soldier } from './types'
 
 export type RequestPayload = Record<string, string | Date | RequestPayload[] | number | boolean>
 
@@ -63,6 +63,8 @@ class ApiClient {
       throw new Error(`response.json() error: ${error}`)
     }
   }
+
+  useMissions = async () => await this.fetcher<Mission[]>({ path: '/missions' })
 
   useSoldiers = async () => await this.fetcher<Soldier[]>({ path: '/soldiers' })
 }

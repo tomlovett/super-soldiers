@@ -1,5 +1,7 @@
 export type Mission = {
   name: string
+  soldiers: Soldier[]
+  missions_soldiers: MissionPerformance[]
 }
 
 export type Soldier = {
