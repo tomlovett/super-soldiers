@@ -7,7 +7,7 @@ import { soldiers, missionPerformances } from '../../fixtures'
 import { careerPerformance, rank } from '../../utils/soldier'
 
 const soldierName = ({ first_name, last_name, nickname }: Soldier): string =>
-  !!nickname ? `${first_name} "${nickname}" ${last_name}` : `${first_name} ${last_name}`
+  !!nickname ? `${first_name} '${nickname}' ${last_name}` : `${first_name} ${last_name}`
 
 const Layout = ({ children }: { children: ReactNode }): JSX.Element => {
   const { id } = useParams<{ id: string }>()
