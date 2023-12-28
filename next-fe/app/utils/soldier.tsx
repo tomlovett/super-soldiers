@@ -13,7 +13,7 @@ import {
 export const displayName = (soldier: Soldier): string =>
   !!soldier.nickname
     ? soldier.nickname
-    : soldier.first_name + ' ' + soldier.last_name;
+    : `${soldier.first_name} ${soldier.last_name}`;
 
 export const level = (soldier: Soldier): number => {
   if (soldier.exp < 100 || !soldier.exp) return 0;

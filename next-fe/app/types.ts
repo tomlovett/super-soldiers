@@ -7,7 +7,7 @@ export type Soldier = {
   last_name: string;
   nationality: string;
   gender: string;
-  isAlive: boolean;
+  is_alive: boolean;
   userId?: number;
   nickname: string | null;
   fighterClass: string;

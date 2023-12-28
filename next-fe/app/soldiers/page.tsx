@@ -3,8 +3,8 @@ import { rank, displayName } from '../utils/soldier';
 import apiClient from '../api';
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
-  const text: string = soldier.isAlive ? 'Active' : 'KIA';
-  const textColor: string = soldier.isAlive ? 'text-green-600' : 'text-red-600';
+  const text: string = soldier.is_alive ? 'Active' : 'KIA';
+  const textColor: string = soldier.is_alive ? 'text-green-600' : 'text-red-600';
 
   return <span className={textColor}>{text}</span>;
 };
