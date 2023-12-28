@@ -21,15 +21,15 @@ const PerformanceSlice = ({
   soldier: Soldier;
 }) => (
   <li>
-    <Link href={`/soldiers/${perf.soldierId}`}>
+    <Link href={`/soldiers/${perf.soldier_id}`}>
       <div className="min-w-0 flex-auto">
         <p className="text-sm font-semibold leading-6 text-slate-200">
           {displayName(soldier)}
-          <span className="text-red-600">{perf.wasKIA ? ' X' : ''}</span>
+          <span className="text-red-600">{perf.was_KIA ? ' X' : ''}</span>
         </p>
         <p className="mt-1 truncate text-xs leading-5 text-slate-300">
           <span className="uppercase">{rank(soldier)}</span>{' '}
-          {soldier.fighterClass}
+          {soldier.fighter_class}
         </p>
         <p>{/* stats */}</p>
       </div>
@@ -50,7 +50,7 @@ const MissionPage = () => {
           <PerformanceSlice
             perf={perf}
             soldier={soldiers[0]}
-            key={perf.soldierId}
+            key={perf.soldier_id}
           />
         ))}
       </ul>

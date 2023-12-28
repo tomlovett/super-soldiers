@@ -31,10 +31,10 @@ const MissionPerformanceSlice = ({
           <p className="mt-1 truncate text-xs leading-5 text-slate-300">
             {statsByline(missionPerformance)}
             <span className="text-yellow-400">
-              {missionPerformance.wasPromoted ? ' ^' : ''}
+              {missionPerformance.was_promoted ? ' ^' : ''}
             </span>
             <span className="text-red-600">
-              {missionPerformance.wasKIA ? ' X' : ''}
+              {missionPerformance.was_KIA ? ' X' : ''}
             </span>
           </p>
         </div>
@@ -50,7 +50,7 @@ const PerformancePage = (): JSX.Element => (
         <MissionPerformanceSlice
           missionPerformance={missionPerf}
           missionName={'Da Mission'}
-          key={missionPerf.missionId}
+          key={missionPerf.mission_id}
         />
       ))}
     </ul>

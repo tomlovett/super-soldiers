@@ -8,19 +8,19 @@ export type Soldier = {
   nationality: string;
   gender: string;
   is_alive: boolean;
-  userId?: number;
+  user_id?: number;
   nickname: string | null;
-  fighterClass: string;
+  fighter_class: string;
   exp: number;
 };
 
 export type MissionPerformance = {
-  missionId: number;
-  soldierId: number;
+  mission_id: number;
+  soldier_id: number;
   hits: number;
   misses: number;
   kills: number;
-  expGained: number;
-  wasKIA: boolean;
-  wasPromoted: boolean;
+  exp_gained: number;
+  was_KIA: boolean;
+  was_promoted: boolean;
 };
