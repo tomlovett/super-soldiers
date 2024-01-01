@@ -29,8 +29,8 @@ RSpec.describe 'Missions API', type: :request do
     context 'with valid mission_id' do
       it 'returns the mission with its missions_soldiers and soldier info' do
         expect(json).not_to be_empty
-        expect(json['soldiers'][0]['id']).to eq(missions_soldier.id)
-        expect(json['soldiers'][0]['soldier_id']).to eq(soldier.id)
+        expect(json['performances'][0]['id']).to eq(missions_soldier.id)
+        expect(json['performances'][0]['soldier_id']).to eq(soldier.id)
       end
 
       it 'returns 200' do
