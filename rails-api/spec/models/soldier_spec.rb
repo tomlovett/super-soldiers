@@ -10,6 +10,25 @@ RSpec.describe Soldier, type: :model do
   it { should validate_presence_of(:gender) }
   it { should validate_presence_of(:exp) }
 
+  describe '#with_mission_performances' do
+    let(:soldier) { create(:soldier) }
+
+    before do
+      4.times do
+        mission = create(:mission)
+        create(:missions_soldier, soldier: soldier, mission: mission)
+      end
+    end
+
+    it 'returns the soldier object with an array of thier missions' do
+      data_obj = soldier.with_mission_performances
+
+      expect(data_obj['id']).to eq(soldier.id)
+      expect(data_obj[:performances].count).to eq(4)
+      expect(data_obj[:performances][0][:hits]).not_to be_nil
+    end
+  end
+
   describe '#add_to_mission' do
     let(:soldier) { create(:soldier) }
     let(:mission) { create(:mission) }

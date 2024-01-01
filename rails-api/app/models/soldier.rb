@@ -36,6 +36,12 @@ class Soldier < ApplicationRecord
   # 	nickname.present? ? nickname : "#{first_name} #{last_name}"
   # end
 
+  def with_mission_performances
+    missions_soldiers = MissionsSoldier.where(soldier: self)
+
+    attributes.merge({ performances: missions_soldiers }).to_h
+  end
+
   def add_to_mission(mission, performance)
     MissionsSoldier.create!(
       mission: mission,
