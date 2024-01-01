@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # scope '/api' do
   resources :soldiers
   resources :missions
-  resources :missions_soldiers
+  resources :performances
 
   get '/self', to: 'users#show'
 

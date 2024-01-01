@@ -3,11 +3,11 @@ class MissionsController < ApplicationController
 
   def index
     @missions = Mission.where(user: @current_user)
-    json_response(@missions.map { |m| m.with_mission_performances })
+    json_response(@missions.map { |m| m.with_performances })
   end
 
   def show
-    json_response(@mission.with_mission_performances)
+    json_response(@mission.with_performances)
   end
 
   def create

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :missions_soldier do
+  factory :performance do
     hits { Faker::Number.digit }
     misses { Faker::Number.digit }
     kills { Faker::Number.digit }

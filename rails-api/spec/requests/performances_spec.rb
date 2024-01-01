@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'MissionsSoldiers API', type: :request do
+RSpec.describe 'Performances API', type: :request do
   let(:user) { create(:user) }
   let(:headers) { valid_headers }
   let(:soldier) { create(:soldier, user: user) }
   let(:mission) { create(:mission, user: user) }
-  let(:missions_soldier) { create(:missions_soldier, mission: mission, soldier: soldier) }
+  let(:performance) { create(:performance, mission: mission, soldier: soldier) }
   let(:mission_data) do
     {
       mission_id: mission.id,
@@ -19,15 +19,15 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
     }
   end
 
-  describe 'GET /missions_soldiers/:id' do
-    before { get "/missions_soldiers/#{id}", headers: headers }
+  describe 'GET /performances/:id' do
+    before { get "/performances/#{id}", headers: headers }
 
     context 'with a valid record' do
-      let(:id) { missions_soldier.id }
+      let(:id) { performance.id }
 
       it 'returns the record' do
         expect(response).to have_http_status(200)
-        expect(json['hits']).to eq(missions_soldier.hits)
+        expect(json['hits']).to eq(performance.hits)
         expect(json['mission_id']).to eq(mission.id)
         expect(json['soldier_id']).to eq(soldier.id)
       end
@@ -40,20 +40,20 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
     end
   end
 
-  describe 'POST /missions_soldiers/:id' do
-    before { post '/missions_soldiers/', headers: headers, params: body.to_json }
+  describe 'POST /performances/:id' do
+    before { post '/performances/', headers: headers, params: body.to_json }
 
     let(:body) { mission_data }
 
     context 'with complete performance data' do
-      it 'creates a MissionsSoldier record with the performance data' do
+      it 'creates a Performance record with the performance data' do
         expect(response).to have_http_status(201)
 
-        missions_soldier = MissionsSoldier.first
+        performance = Performance.first
 
-        expect(missions_soldier.hits).to eq(3)
-        expect(missions_soldier.misses).to eq(1)
-        expect(missions_soldier.soldier_id).to eq(soldier.id)
+        expect(performance.hits).to eq(3)
+        expect(performance.misses).to eq(1)
+        expect(performance.soldier_id).to eq(soldier.id)
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
         soldier.reload
 
         expect(soldier.is_alive).to be(false) # :(
-        expect(MissionsSoldier.first.misses).to eq(99)
+        expect(Performance.first.misses).to eq(99)
       end
     end
 
@@ -97,15 +97,15 @@ RSpec.describe 'MissionsSoldiers API', type: :request do
     end
   end
 
-  describe 'DELETE /missions_soldiers/:id' do
-    before { delete "/missions_soldiers/#{id}", headers: headers }
+  describe 'DELETE /performances/:id' do
+    before { delete "/performances/#{id}", headers: headers }
 
     context 'with valid record' do
-      let(:id) { missions_soldier.id }
+      let(:id) { performance.id }
 
       it 'returns 204' do
         expect(response).to have_http_status(204)
-        expect(MissionsSoldier.count).to eq(0)
+        expect(Performance.count).to eq(0)
       end
     end
 

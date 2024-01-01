@@ -4,7 +4,7 @@ class SoldiersController < ApplicationController
   def index
     @soldiers = Soldier.all
 
-    json_response(@soldiers.map { |s| s.with_mission_performances })
+    json_response(@soldiers.map { |s| s.with_performances })
   end
 
   def create
@@ -13,7 +13,7 @@ class SoldiersController < ApplicationController
   end
 
   def show
-    json_response(@soldier.with_mission_performances)
+    json_response(@soldier.with_performances)
   end
 
   def update

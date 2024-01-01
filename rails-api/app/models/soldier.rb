@@ -1,6 +1,6 @@
 class Soldier < ApplicationRecord
   belongs_to :user
-  has_many :missions_soldiers
+  has_many :performances
   has_and_belongs_to_many :skills
 
   validates_presence_of :first_name, :last_name, :nationality, :gender, :exp
@@ -36,14 +36,14 @@ class Soldier < ApplicationRecord
   # 	nickname.present? ? nickname : "#{first_name} #{last_name}"
   # end
 
-  def with_mission_performances
-    missions_soldiers = MissionsSoldier.where(soldier: self)
+  def with_performances
+    performances = Performance.where(soldier: self)
 
-    attributes.merge({ performances: missions_soldiers }).to_h
+    attributes.merge({ performances: performances }).to_h
   end
 
   def add_to_mission(mission, performance)
-    MissionsSoldier.create!(
+    Performance.create!(
       mission: mission,
       soldier: self,
       hits: performance[:hits],
@@ -100,16 +100,16 @@ class Soldier < ApplicationRecord
   end
 
   def career_kills
-    missions_soldiers.sum(:kills)
+    performances.sum(:kills)
   end
 
   def career_missions
-    missions_soldiers.count
+    performances.count
   end
 
   def career_accuracy
-    hits = missions_soldiers.sum(:hits)
-    misses = missions_soldiers.sum(:misses)
+    hits = performances.sum(:hits)
+    misses = performances.sum(:misses)
 
     (100 * hits / (hits + misses)).round
   end

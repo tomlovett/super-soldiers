@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Soldier, type: :model do
   it { should belong_to(:user) }
-  it { should have_many(:missions_soldiers) }
+  it { should have_many(:performances) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
@@ -10,18 +10,18 @@ RSpec.describe Soldier, type: :model do
   it { should validate_presence_of(:gender) }
   it { should validate_presence_of(:exp) }
 
-  describe '#with_mission_performances' do
+  describe '#with_performances' do
     let(:soldier) { create(:soldier) }
 
     before do
       4.times do
         mission = create(:mission)
-        create(:missions_soldier, soldier: soldier, mission: mission)
+        create(:performance, soldier: soldier, mission: mission)
       end
     end
 
     it 'returns the soldier object with an array of thier missions' do
-      data_obj = soldier.with_mission_performances
+      data_obj = soldier.with_performances
 
       expect(data_obj['id']).to eq(soldier.id)
       expect(data_obj[:performances].count).to eq(4)
@@ -44,12 +44,12 @@ RSpec.describe Soldier, type: :model do
     end
 
     context 'with valid data' do
-      it 'creates a new MissionsSoldier record' do
+      it 'creates a new Performance record' do
         soldier.add_to_mission(mission, performance)
 
-        expect(MissionsSoldier.where(soldier: soldier, mission: mission).count).to eq(1)
+        expect(Performance.where(soldier: soldier, mission: mission).count).to eq(1)
 
-        missions_soldier = MissionsSoldier.take
+        missions_soldier = Performance.take
 
         expect(missions_soldier.mission.id).to eq(mission.id)
         expect(missions_soldier.soldier.id).to eq(soldier.id)
@@ -128,19 +128,19 @@ RSpec.describe Soldier, type: :model do
     end
 
     context 'with no kills from missions' do
-      let!(:missions_soldiers) { create_list(:missions_soldier, 4, soldier: soldier, kills: 0) }
+      let!(:performances) { create_list(:performance, 4, soldier: soldier, kills: 0) }
 
       it { expect(soldier.career_kills).to eq(0) }
     end
 
     context 'with kills from one mission' do
-      let!(:missions_soldier) { create(:missions_soldier, soldier: soldier, kills: 3) }
+      let!(:performance) { create(:performance, soldier: soldier, kills: 3) }
 
       it { expect(soldier.career_kills).to eq(3) }
     end
 
     context 'with kills from multiple missions' do
-      let!(:missions_soldier) { create_list(:missions_soldier, 2, soldier: soldier, kills: 3) }
+      let!(:performance) { create_list(:performance, 2, soldier: soldier, kills: 3) }
 
       it { expect(soldier.career_kills).to eq(6) }
     end
@@ -154,7 +154,7 @@ RSpec.describe Soldier, type: :model do
     end
 
     context 'with multiple missions' do
-      let!(:missions_soldier) { create_list(:missions_soldier, 2, soldier: soldier) }
+      let!(:performance) { create_list(:performance, 2, soldier: soldier) }
 
       it { expect(soldier.career_missions).to eq(2) }
     end

@@ -1,42 +1,42 @@
-class MissionsSoldiersController < ApplicationController
-  before_action :set_missions_soldier, only: [:show, :destroy]
+class PerformancesController < ApplicationController
+  before_action :set_performance, only: [:show, :destroy]
   before_action :set_soldier, only: [:create]
 
   def index
-    @missions_soldiers = MissionsSoldier.where(user: @current_user)
-    json_response(@missions_soldiers)
+    @performances = Performance.where(user: @current_user)
+    json_response(@performances)
   end
 
   def show
-    json_response(@missions_soldier)
+    json_response(@performance)
   end
 
   def create
     return head :unprocessable_entity if !@soldier.is_alive?
 
-    @missions_soldier = MissionsSoldier.create!(create_params)
+    @performance = Performance.create!(create_params)
 
     register_death_if_applicable
     apply_experience_to_soldier
 
-    json_response(@missions_soldier, :created)
+    json_response(@performance, :created)
   end
 
   def destroy
-    @missions_soldier.destroy!
+    @performance.destroy!
     head :no_content
   end
 
   private
 
   def create_params
-    params.require(:missions_soldier).permit(
+    params.require(:performance).permit(
       :mission_id, :soldier_id, :hits, :misses, :kills, :was_promoted, :was_KIA, :exp_gained
     )
   end
 
-  def set_missions_soldier
-    @missions_soldier = MissionsSoldier.find(params[:id])
+  def set_performance
+    @performance = Performance.find(params[:id])
   end
 
   def set_soldier

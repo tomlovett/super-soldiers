@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MissionsSoldier, type: :model do
+RSpec.describe Performance, type: :model do
   it { should belong_to(:mission) }
   it { should belong_to(:soldier) }
 

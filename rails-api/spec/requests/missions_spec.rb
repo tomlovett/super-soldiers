@@ -22,14 +22,14 @@ RSpec.describe 'Missions API', type: :request do
   end
 
   describe 'GET /mission/:id' do
-    let!(:missions_soldier) { create(:missions_soldier, mission: missions[0], soldier: soldier) }
+    let!(:performance) { create(:performance, mission: missions[0], soldier: soldier) }
 
     before { get "/missions/#{id}", headers: headers }
 
     context 'with valid mission_id' do
-      it 'returns the mission with its missions_soldiers and soldier info' do
+      it 'returns the mission with its performances and soldier info' do
         expect(json).not_to be_empty
-        expect(json['performances'][0]['id']).to eq(missions_soldier.id)
+        expect(json['performances'][0]['id']).to eq(performance.id)
         expect(json['performances'][0]['soldier_id']).to eq(soldier.id)
       end
 
