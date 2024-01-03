@@ -1,5 +1,4 @@
 import type { Soldier } from '../types'
-import { rank, displayName } from '../utils/soldier'
 import apiClient from '../api'
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
@@ -18,9 +17,9 @@ const SoldierCard = ({ soldier }: { soldier: Soldier }): JSX.Element => (
         alt=""
       />
       <div className="min-w-0 flex-auto">
-        <p className="text-sm font-semibold leading-6 text-slate-200">{displayName(soldier)}</p>
+        <p className="text-sm font-semibold leading-6 text-slate-200">{soldier.shortName}</p>
         <p className="mt-1 truncate text-xs leading-5 text-slate-300">
-          <span className="uppercase">{rank(soldier)}</span> {soldier.fighter_class}
+          <span className="uppercase">{soldier.rank}</span> {soldier.fighter_class}
         </p>
       </div>
     </div>
@@ -40,7 +39,7 @@ const SoldiersPage = async () => {
       <div className="container mx-auto px-8 items-center justify-between p-12">
         <ul role="list" className="column divide-y divide-gray-400">
           {soldiersList.map((soldier) => (
-            <SoldierCard soldier={soldier} key={displayName(soldier)} />
+            <SoldierCard soldier={soldier} key={soldier.id} />
           ))}
         </ul>
       </div>

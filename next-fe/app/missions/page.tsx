@@ -1,6 +1,5 @@
 import type { Mission, Performance, Soldier } from '../types'
 import apiClient from '../api'
-import { displayName } from '../utils/soldier'
 
 const nameList = (soldiers: Soldier[]): string => {
   if (soldiers === undefined || soldiers.length === 0) return ''
@@ -8,7 +7,7 @@ const nameList = (soldiers: Soldier[]): string => {
   let soldierNameList = ''
 
   soldiers.map((soldier) => {
-    soldierNameList += displayName(soldier) + ', '
+    soldierNameList += soldier.shortName + ', '
   })
 
   return soldierNameList.slice(0, -2)

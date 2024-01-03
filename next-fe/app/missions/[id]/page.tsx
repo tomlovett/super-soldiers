@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import type { Performance } from '../../types'
-import { displayName, rank } from '../../utils/soldier'
 import apiClient from '../../api'
 
 // const mortalityStatus = (soldier: Soldier): JSX.Element => {
@@ -10,6 +9,13 @@ import apiClient from '../../api'
 //   return <span className={textColor}>{text}</span>
 // }
 
+const statsByline = ({ hits, misses, kills }: Performance): string => {
+  const percentage = hits / (hits + misses)
+  const accuracy: number = Math.round(percentage * 100)
+
+  return `Hits: ${hits} Misses: ${misses} Kills: ${kills} Accuracy: ${accuracy}%`
+}
+
 const PerformanceSlice = async ({ perf }: { perf: Performance }) => {
   const soldier = await apiClient.useSoldier(perf.soldier_id)
 
@@ -18,13 +24,13 @@ const PerformanceSlice = async ({ perf }: { perf: Performance }) => {
       <Link href={`/soldiers/${perf.soldier_id}`}>
         <div className="min-w-0 flex-auto">
           <p className="text-sm font-semibold leading-6 text-slate-200">
-            {displayName(soldier)}
+            {soldier.shortName}
             <span className="text-red-600">{perf.was_KIA ? ' X' : ''}</span>
           </p>
           <p className="mt-1 truncate text-xs leading-5 text-slate-300">
-            <span className="uppercase">{rank(soldier)}</span> {soldier.fighter_class}
+            <span className="uppercase">{soldier.rank}</span> {soldier.fighter_class}
           </p>
-          <p>{/* stats */}</p>
+          <p>{statsByline(perf)}</p>
         </div>
       </Link>
     </li>
