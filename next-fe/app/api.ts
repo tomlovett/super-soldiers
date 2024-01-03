@@ -30,7 +30,7 @@ class ApiClient {
   constructor() {}
 
   private getAuthToken = (): string | void =>
-    'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MDM4NjY1NTF9.jt3EtEHjK9iV65pke3uiLXjNwmPrUJzoU6W8xDIl8zo'
+    'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjI0NjE2NzYxNTh9.FnuhsnKOc1iz43t10QTZkD5pQ_Qu3oTopwaX7WU9D_Q'
 
   // https://stackoverflow.com/questions/63313799/typescript-argument-cant-use-any-in-fetch
   private fetcher = async <T>(options: FetcherProps): Promise<T> => {

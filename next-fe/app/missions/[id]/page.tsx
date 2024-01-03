@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { soldiers, missions, missionPerformances } from '../../fixtures'
-import type { Mission, MissionPerformance, Soldier } from '../../types'
+import type { Mission, Performance, Soldier } from '../../types'
 import { displayName, rank } from '../../utils/soldier'
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
@@ -13,7 +13,7 @@ const mortalityStatus = (soldier: Soldier): JSX.Element => {
   return <span className={textColor}>{text}</span>
 }
 
-const PerformanceSlice = ({ perf, soldier }: { perf: MissionPerformance; soldier: Soldier }) => (
+const PerformanceSlice = ({ perf, soldier }: { perf: Performance; soldier: Soldier }) => (
   <li>
     <Link href={`/soldiers/${perf.soldier_id}`}>
       <div className="min-w-0 flex-auto">

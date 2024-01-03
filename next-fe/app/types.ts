@@ -1,7 +1,7 @@
 export type Mission = {
   name: string
   soldiers: Soldier[]
-  missions_soldiers: MissionPerformance[]
+  performances: Performance[]
 }
 
 export type Soldier = {
@@ -16,7 +16,7 @@ export type Soldier = {
   exp: number
 }
 
-export type MissionPerformance = {
+export type Performance = {
   mission_id: number
   soldier_id: number
   hits: number

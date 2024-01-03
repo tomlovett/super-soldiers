@@ -1,4 +1,4 @@
-import type { MissionPerformance, Soldier } from '../types'
+import type { Performance, Soldier } from '../types'
 import { ROOKIE, SQUADDIE, CORPORAL, SERGEANT, LIEUTENANT, CAPTAIN, MAJOR, COLONEL } from '../constants'
 
 export const displayName = (soldier: Soldier): string =>
@@ -36,15 +36,15 @@ export const rank = (soldier: Soldier): string => {
   }
 }
 
-export const careerPerformance = (missionPerfs: MissionPerformance[]): { kills: number; accuracy: number } => {
+export const careerPerformance = (performances: Performance[]): { kills: number; accuracy: number } => {
   let kills = 0
   let hits = 0
   let misses = 0
 
-  missionPerfs.map((missionPerf) => {
-    kills += missionPerf.kills
-    hits += missionPerf.hits
-    misses += missionPerf.misses
+  performances.map((perf) => {
+    kills += perf.kills
+    hits += perf.hits
+    misses += perf.misses
   })
 
   const accuracy = Math.round((100 * hits) / (hits + misses))

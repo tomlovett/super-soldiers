@@ -1,9 +1,9 @@
-import type { Mission, MissionPerformance, Soldier } from '../types'
+import type { Mission, Performance, Soldier } from '../types'
 import apiClient from '../api'
 import { displayName } from '../utils/soldier'
 
 const nameList = (soldiers: Soldier[]): string => {
-  if (soldiers.length === 0) return ''
+  if (soldiers === undefined || soldiers.length === 0) return ''
 
   let soldierNameList = ''
 
@@ -14,11 +14,11 @@ const nameList = (soldiers: Soldier[]): string => {
   return soldierNameList.slice(0, -2)
 }
 
-const performanceSlice = (missions_soldiers: MissionPerformance[]) => {
+const performanceSlice = (performances: Performance[]) => {
   let totalKills = 0
   let totalKIA = 0
 
-  missions_soldiers.map((mp) => {
+  performances.map((mp) => {
     totalKills += mp.kills
     if (mp.was_KIA) totalKIA += 1
   })
@@ -49,7 +49,7 @@ const MissionCard = ({ mission }: { mission: Mission }) => (
       </div>
     </div>
     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p className="text-sm leading-6 text-slate-400">{performanceSlice(mission.missions_soldiers)}</p>
+      <p className="text-sm leading-6 text-slate-400">{performanceSlice(mission.performances)}</p>
       <p className="mt-1 text-xs leading-5 text-slate-500">
         Last seen <time>3h ago</time>
       </p>
