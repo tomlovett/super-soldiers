@@ -59,7 +59,7 @@ export class Soldier {
   }
 
   get level(): number {
-    if (this.exp < 100 || !this.exp) return 0
+    if (this.exp < 100) return 0
     if (this.exp < 250) return 1
     if (this.exp < 500) return 2
     if (this.exp < 1000) return 3

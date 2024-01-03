@@ -54,11 +54,7 @@ class ApiClient {
       response = await fetch(fullPath, fetchOpts)
 
       if (!response?.ok) {
-        if (typeof window !== 'undefined') {
-          return Promise.reject(new Error(`${response.status}: ${response.statusText}`))
-        } else {
-          throw new Error(`${response.status}: ${response.statusText}`)
-        }
+        throw new Error(`${response.status}: ${response.statusText}`)
       }
 
       const responseData = await response.json()
