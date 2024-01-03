@@ -65,8 +65,10 @@ class ApiClient {
   }
 
   useMissions = async () => await this.fetcher<Mission[]>({ path: '/missions' })
+  useMission = async (id: string) => await this.fetcher<Mission>({ path: `/missions/${id}` })
 
   useSoldiers = async () => await this.fetcher<Soldier[]>({ path: '/soldiers' })
+  useSoldier = async (id: string) => await this.fetcher<Soldier>({ path: `/soldiers/${id}` })
 }
 
 const apiClient = new ApiClient()

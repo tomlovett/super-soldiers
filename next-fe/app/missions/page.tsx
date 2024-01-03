@@ -59,7 +59,6 @@ const MissionCard = ({ mission }: { mission: Mission }) => (
 
 const MissionsPage = async () => {
   const missionsList: Mission[] = await apiClient.useMissions()
-  console.log(missionsList)
 
   return (
     <>

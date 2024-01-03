@@ -1,10 +1,20 @@
-export type Mission = {
+export class Mission {
+  id: string
   name: string
   soldiers: Soldier[]
   performances: Performance[]
+
+  constructor(options?: any) {
+    if (!options) return
+    if (options.id) this.id = options.id
+    if (options.name) this.name = options.name
+    if (options.soldiers) this.soldiers = options.soldiers
+    if (options.performances) this.performances = options.performances
+  }
 }
 
-export type Soldier = {
+export class Soldier {
+  id: string
   first_name: string
   last_name: string
   nationality: string
@@ -17,8 +27,10 @@ export type Soldier = {
 }
 
 export type Performance = {
-  mission_id: number
-  soldier_id: number
+  mission_id: string
+  mission?: Mission
+  soldier_id: string
+  soldier?: Soldier
   hits: number
   misses: number
   kills: number
