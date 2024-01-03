@@ -24,6 +24,7 @@ export class Soldier {
   nickname: string | null
   fighter_class: string
   exp: number
+  performances: Performance[]
 }
 
 export type Performance = {

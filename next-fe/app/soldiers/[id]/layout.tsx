@@ -1,19 +1,15 @@
-'use client'
-
-import { useParams } from 'next/navigation'
 import { ReactNode } from 'react'
 import type { Soldier } from '../../types'
-import { soldiers, missionPerformances } from '../../fixtures'
 import { careerPerformance, rank } from '../../utils/soldier'
+import apiClient from '../../api'
 
 const soldierName = ({ first_name, last_name, nickname }: Soldier): string =>
   !!nickname ? `${first_name} '${nickname}' ${last_name}` : `${first_name} ${last_name}`
 
-const Layout = ({ children }: { children: ReactNode }): JSX.Element => {
-  const { id } = useParams<{ id: string }>()
-  const soldier: Soldier = soldiers[Number(id)]
+const Layout = async ({ children, params }: { children: ReactNode; params: any }) => {
+  const soldier = await apiClient.useSoldier(params.id)
 
-  const careerStats = careerPerformance(missionPerformances)
+  const careerStats = careerPerformance(soldier.performances)
 
   return (
     <div className="container p-6">
@@ -23,8 +19,7 @@ const Layout = ({ children }: { children: ReactNode }): JSX.Element => {
         <span className="text-red-600">{soldier.is_alive ? '' : ' X'}</span>
       </p>
       <p>
-        Missions: {missionPerformances.length} &nbsp; Kills: {careerStats.kills} &nbsp; Accuracy: {careerStats.accuracy}
-        %
+        Missions: {careerStats.missions} &nbsp; Kills: {careerStats.kills} &nbsp; Accuracy: {careerStats.accuracy}%
       </p>
 
       {children}

@@ -36,7 +36,13 @@ export const rank = (soldier: Soldier): string => {
   }
 }
 
-export const careerPerformance = (performances: Performance[]): { kills: number; accuracy: number } => {
+interface careerPerformanceResults {
+  kills: number
+  accuracy: number
+  missions: number
+}
+
+export const careerPerformance = (performances: Performance[]): careerPerformanceResults => {
   let kills = 0
   let hits = 0
   let misses = 0
@@ -49,5 +55,5 @@ export const careerPerformance = (performances: Performance[]): { kills: number;
 
   const accuracy = Math.round((100 * hits) / (hits + misses))
 
-  return { kills, accuracy }
+  return { kills, accuracy, missions: performances.length }
 }
