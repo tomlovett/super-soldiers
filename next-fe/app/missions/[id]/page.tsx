@@ -20,7 +20,7 @@ const PerformanceSlice = async ({ perf }: { perf: Performance }) => {
   const soldier = await apiClient.useSoldier(perf.soldier_id)
 
   return (
-    <li>
+    <li className="py-4">
       <Link href={`/soldiers/${perf.soldier_id}`}>
         <div className="min-w-0 flex-auto">
           <p className="text-sm font-semibold leading-6 text-slate-200">
@@ -42,7 +42,7 @@ const MissionPage = async ({ params }: any) => {
 
   return (
     <div className="container p-6">
-      <h2>{mission.name}</h2>
+      <h2>MISSION: {mission.name}</h2>
 
       <ul role="list" className="column divide-y divide-gray-400">
         {mission.performances.map((perf) => (

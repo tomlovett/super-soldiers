@@ -59,7 +59,7 @@ export class Soldier {
   }
 
   get level(): number {
-    if (this.exp < 100) return 0
+    if (this.exp < 100 || this.exp === undefined) return 0
     if (this.exp < 250) return 1
     if (this.exp < 500) return 2
     if (this.exp < 1000) return 3
@@ -90,26 +90,30 @@ export class Soldier {
     }
   }
 
-  get careerPerformance(): {
-    kills: number
-    accuracy: number
-    numMissions: number
-  } {
-    let kills = 0
-    let hits = 0
-    let misses = 0
-    let accuracy = 0
+  get numMissions(): number {
+    return this.performances.length
+  }
 
-    this.performances.map((perf) => {
-      kills += perf.kills
-      hits += perf.hits
-      misses += perf.misses
-    })
+  private accumulateStat(statName: string): number {
+    return this.performances.reduce((acc, currVal) => acc + currVal[statName], 0)
+  }
 
-    if (hits + misses > 0) {
-      accuracy = Math.round((100 * hits) / (hits + misses))
-    }
+  get numKills(): number {
+    return this.accumulateStat('kills')
+  }
 
-    return { kills, accuracy, numMissions: this.performances.length }
+  get numHits(): number {
+    return this.accumulateStat('hits')
+  }
+
+  get numMisses(): number {
+    return this.accumulateStat('misses')
+  }
+
+  get accuracy(): string {
+    const misses = this.numMisses
+    const hits = this.numHits
+
+    return hits + misses > 0 ? Math.round((100 * hits) / (hits + misses)) + '%' : '0%'
   }
 }

@@ -4,8 +4,6 @@ import apiClient from '../../api'
 const Layout = async ({ children, params }: { children: ReactNode; params: any }) => {
   const soldier = await apiClient.useSoldier(params.id)
 
-  const { numMissions, kills, accuracy } = soldier.careerPerformance
-
   return (
     <div className="container p-6">
       <h2>{soldier.longName}</h2>
@@ -14,7 +12,7 @@ const Layout = async ({ children, params }: { children: ReactNode; params: any }
         <span className="text-red-600">{soldier.is_alive ? '' : ' X'}</span>
       </p>
       <p>
-        Missions: {numMissions} &nbsp; Kills: {kills} &nbsp; Accuracy: {accuracy}%
+        Missions: {soldier.numMissions} &nbsp; Kills: {soldier.numKills} &nbsp; Accuracy: {soldier.accuracy}
       </p>
 
       {children}
