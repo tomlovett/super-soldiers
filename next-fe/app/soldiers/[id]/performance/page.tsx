@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import type { Performance } from '../../../types'
-import apiClient from '../../../api'
+import type { Performance } from 'types'
+import apiClient from 'api'
 
 const statsByline = ({ hits, misses, kills }: Performance): string => {
   const percentage = hits / (hits + misses)

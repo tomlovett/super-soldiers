@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import type { Soldier } from '../types'
-import apiClient from '../api'
-import { sortById } from '../utils'
+import type { Soldier } from 'types'
+import apiClient from 'api'
+import { sortById } from 'utils'
 
 const mortalityStatus = (soldier: Soldier): JSX.Element => {
   const text: string = soldier.is_alive ? 'Active' : 'KIA'

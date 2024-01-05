@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import apiClient from '../../api'
+import apiClient from 'api'
 
 const Layout = async ({ children, params }: { children: ReactNode; params: any }) => {
   const soldier = await apiClient.useSoldier(params.id)

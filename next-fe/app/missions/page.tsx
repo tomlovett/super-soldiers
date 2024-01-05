@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import type { Mission, Performance, Soldier } from '../types'
-import apiClient from '../api'
-import { sortById } from '../utils'
+import type { Mission, Performance, Soldier } from 'types'
+import apiClient from 'api'
+import { sortById } from 'utils'
 
 const nameList = (soldiers: Soldier[]): string => {
   if (soldiers === undefined || soldiers.length === 0) return ''

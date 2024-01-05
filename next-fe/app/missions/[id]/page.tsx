@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import type { Performance } from '../../types'
-import apiClient from '../../api'
+import type { Performance } from 'types'
+import apiClient from 'api'
 
 // const mortalityStatus = (soldier: Soldier): JSX.Element => {
 //   const text: string = soldier.is_alive ? 'Active' : 'KIA'

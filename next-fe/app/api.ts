@@ -1,4 +1,4 @@
-import { Mission, Soldier } from './types'
+import { Mission, Soldier } from 'types'
 
 export type RequestPayload = Record<string, string | Date | RequestPayload[] | number | boolean>
 
