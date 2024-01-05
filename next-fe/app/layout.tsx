@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import ThemeRegistry from '@components/ThemeRegistry/ThemeRegistry'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Super Soldiers',
@@ -15,7 +13,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <meta name="viewport" content="initial-scale=1, width=device-width" />
     </head>
 
-    <body className={`container px-6 ${inter.className}`}>{children}</body>
+    <body>
+      <ThemeRegistry>{children}</ThemeRegistry>
+    </body>
   </html>
 )
 
