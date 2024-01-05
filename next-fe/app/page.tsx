@@ -1,9 +1,5 @@
 import Link from 'next/link'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
+import { Card, CardContent, Container, Grid, Typography } from '@mui/material'
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech'
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice'
 

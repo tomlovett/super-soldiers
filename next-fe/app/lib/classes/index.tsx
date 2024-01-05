@@ -1,1 +1,1 @@
-export type { Soldier } from './Soldier'
+export { Soldier } from './Soldier'
