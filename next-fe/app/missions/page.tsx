@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import type { Mission, Performance, Soldier } from 'types'
+import type { Mission, Performance } from 'types'
+import { Soldier } from 'classes'
 import apiClient from 'api'
 import { sortById } from 'utils'
 

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { Performance } from 'types'
+import type { Mission, Performance } from 'types'
 import apiClient from 'api'
 
 // const mortalityStatus = (soldier: Soldier): JSX.Element => {
@@ -38,7 +38,7 @@ const PerformanceSlice = async ({ perf }: { perf: Performance }) => {
 }
 
 const MissionPage = async ({ params }: any) => {
-  const mission = await apiClient.useMission(params.id as string)
+  const mission: Mission = await apiClient.useMission(params.id as string)
 
   return (
     <div className="container p-6">

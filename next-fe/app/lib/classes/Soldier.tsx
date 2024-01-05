@@ -1,24 +1,4 @@
-import { ROOKIE, SQUADDIE, CORPORAL, SERGEANT, LIEUTENANT, CAPTAIN, MAJOR, COLONEL } from './constants'
-
-export class Mission {
-  id: string
-  name: string
-  soldiers: Soldier[]
-  performances: Performance[]
-}
-
-export type Performance = {
-  mission_id: string
-  mission?: Mission
-  soldier_id: string
-  soldier?: Soldier
-  hits: number
-  misses: number
-  kills: number
-  exp_gained: number
-  was_KIA: boolean
-  was_promoted: boolean
-}
+import { ROOKIE, SQUADDIE, CORPORAL, SERGEANT, LIEUTENANT, CAPTAIN, MAJOR, COLONEL } from 'lib/constants'
 
 export class Soldier {
   id: string
@@ -95,7 +75,7 @@ export class Soldier {
   }
 
   private accumulateStat(statName: string): number {
-    return this.performances.reduce((acc, currVal) => acc + currVal[statName], 0)
+    return this.performances.reduce((acc: number, currObj: any) => acc + currObj[statName], 0)
   }
 
   get numKills(): number {

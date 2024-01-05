@@ -5,6 +5,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -22,9 +23,11 @@
       "@/*": ["./*"],
       "app/*": ["./app/*"],
       "components/*": ["./app/components/*"],
-      "api": ["./app/api"],
-      "types": ["./app/types"],
-      "utils": ["./app/utils"]
+      "lib/*": ["./app/lib/*"],
+      "api": ["./app/lib/api"],
+      "types": ["./app/lib/types"],
+      "classes": ["./app/lib/classes"],
+      "utils": ["./app/lib/utils"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

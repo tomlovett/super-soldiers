@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { Soldier } from 'types'
+import { Soldier } from 'classes'
 import apiClient from 'api'
 import { sortById } from 'utils'
 
