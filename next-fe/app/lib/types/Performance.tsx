@@ -2,6 +2,7 @@ import { Mission } from 'types'
 import { Soldier } from 'classes'
 
 export type Performance = {
+  id: number
   mission_id: string
   mission?: Mission
   soldier_id: string

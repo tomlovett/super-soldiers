@@ -1,4 +1,6 @@
+import { Performance } from 'types'
 import { ROOKIE, SQUADDIE, CORPORAL, SERGEANT, LIEUTENANT, CAPTAIN, MAJOR, COLONEL } from 'lib/constants'
+import { sortById } from 'utils'
 
 export class Soldier {
   id: string
@@ -25,7 +27,10 @@ export class Soldier {
     if (options.user_id) this.user_id = options.user_id
     if (options.fighter_class) this.fighter_class = options.fighter_class
     if (options.exp) this.exp = options.exp
-    if (options.performances) this.performances = options.performances
+    if (options.performances) {
+      this.performances = options.performances
+      this.performances.sort(sortById)
+    }
   }
 
   get shortName(): string {

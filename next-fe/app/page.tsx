@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Card, CardContent, Container, Grid, Typography } from '@mui/material'
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech'
-import LocalPoliceIcon from '@mui/icons-material/LocalPolice'
+import { MissionIcon, SoldierIcon } from 'components/Icons'
 
 interface LinkCardProps {
   href: string
@@ -46,7 +45,7 @@ const Home = () => (
           href="/missions"
           headerText="View Missions"
           bodyText="Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi."
-          icon={<MilitaryTechIcon />}
+          icon={<MissionIcon />}
           key="missions"
         />
 
@@ -54,7 +53,7 @@ const Home = () => (
           href="/soldiers"
           headerText="View Soldiers"
           bodyText="Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam amet."
-          icon=<LocalPoliceIcon />
+          icon={<SoldierIcon />}
           key="soldiers"
         />
       </Grid>
